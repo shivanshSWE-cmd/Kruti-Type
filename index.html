@@ -1,0 +1,3317 @@
+<!DOCTYPE html>
+<html lang="hi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kruti Dev 010 Hindi Typing Speed Test | कृति देव टाइपिंग टेस्ट</title>
+  <meta name="description" content="High-performance, customizable-themed Kruti Dev 010 Hindi Typing Speed Test with real-time WPM, Alt-codes helper, mechanical keyboard audio, and detailed analytics.">
+  
+  <!-- Modern Monospace & Sans UI Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* -------------------------------------------------------------
+       1. FONT DEFINITIONS & DYNAMIC THEME VARIABLES
+       ------------------------------------------------------------- */
+    @font-face {
+      font-family: 'Kruti Dev 010';
+      src: local('Kruti Dev 010'), 
+           local('KrutiDev010'), 
+           local('Kruti Dev 010 Regular'),
+           url('https://cdn.jsdelivr.net/gh/TGNYC/Kriti-Dev-to-Unicode@master/Kruti%20Dev%20010%20Regular.ttf') format('truetype'),
+           url('https://raw.githubusercontent.com/TGNYC/Kriti-Dev-to-Unicode/master/Kruti%20Dev%20010%20Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      /* Default: AMOLED Black */
+      --bg-black: #000000;
+      --surface-1: #090a0d;
+      --surface-2: #121318;
+      --surface-3: #1a1b23;
+      --border-subtle: #222530;
+      --border-bright: #353849;
+      
+      --neon-cyan: #00E5FF;
+      --neon-cyan-glow: rgba(0, 229, 255, 0.4);
+      --neon-green: #00FF66;
+      --neon-green-glow: rgba(0, 255, 102, 0.45);
+      --crimson-red: #FF3366;
+      --crimson-red-glow: rgba(255, 51, 102, 0.45);
+      --gold-streak: #FFD700;
+      --gold-glow: rgba(255, 215, 0, 0.5);
+      
+      --text-muted: #575e6e;
+      --text-dim: #8e95a7;
+      --text-bright: #f0f3fa;
+      
+      --font-kruti: 'Kruti Dev 010', monospace;
+      --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-black);
+      color: var(--text-bright);
+      font-family: var(--font-ui);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      user-select: none;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-black);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--surface-3);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--neon-cyan);
+    }
+
+    /* -------------------------------------------------------------
+       2. TYPOGRAPHY & GLYPH STYLES
+       ------------------------------------------------------------- */
+    .kruti-text {
+      font-family: var(--font-kruti) !important;
+      letter-spacing: 0.03em;
+      line-height: 1.6;
+    }
+
+    .mono-num {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* -------------------------------------------------------------
+       3. ANIMATIONS & FEEDBACK
+       ------------------------------------------------------------- */
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.85; filter: drop-shadow(0 0 6px var(--neon-cyan-glow)); }
+      50% { opacity: 1; filter: drop-shadow(0 0 16px var(--neon-cyan)); }
+    }
+
+    @keyframes streak-pop {
+      0% { transform: scale(0.8); }
+      50% { transform: scale(1.18); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-5px); }
+      40%, 80% { transform: translateX(5px); }
+    }
+
+    @keyframes caret-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.15; }
+    }
+
+    .shake-effect {
+      animation: shake 0.18s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    /* -------------------------------------------------------------
+       4. LAYOUT COMPONENTS
+       ------------------------------------------------------------- */
+    .app-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      cursor: pointer;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-green));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #000;
+      font-size: 1.35rem;
+      box-shadow: 0 0 20px var(--neon-cyan-glow);
+      transition: background 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .brand-title span:first-child {
+      color: var(--text-bright);
+    }
+
+    .brand-title span:last-child {
+      font-size: 0.72rem;
+      color: var(--neon-cyan);
+      font-family: var(--font-mono);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .icon-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-dim);
+      padding: 0.48rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-family: var(--font-ui);
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .icon-btn:hover {
+      background: var(--surface-3);
+      color: var(--text-bright);
+      border-color: var(--border-bright);
+      transform: translateY(-1px);
+    }
+
+    .icon-btn.active {
+      color: var(--neon-cyan);
+      border-color: var(--neon-cyan);
+      background: rgba(0, 229, 255, 0.08);
+      box-shadow: 0 0 12px var(--neon-cyan-glow);
+    }
+
+    .font-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.7rem;
+      border-radius: 9999px;
+      font-size: 0.74rem;
+      font-family: var(--font-mono);
+      border: 1px solid var(--border-subtle);
+      background: var(--surface-1);
+    }
+
+    .font-indicator {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #777;
+    }
+
+    .font-indicator.ready {
+      background: var(--neon-green);
+      box-shadow: 0 0 8px var(--neon-green);
+    }
+
+    /* -------------------------------------------------------------
+       5. GAME CONTROLS & CONFIG BAR (MONKEYTYPE STYLE)
+       ------------------------------------------------------------- */
+    .controls-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 1.25rem 0;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      transition: opacity 0.2s ease;
+    }
+
+    .pill-group {
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      display: flex;
+      padding: 0.25rem;
+      gap: 0.2rem;
+    }
+
+    .pill-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.35rem 0.85rem;
+      border-radius: 7px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .pill-btn:hover {
+      color: var(--text-bright);
+    }
+
+    .pill-btn.active {
+      background: var(--surface-3);
+      color: var(--neon-cyan);
+      box-shadow: 0 0 12px var(--neon-cyan-glow);
+    }
+
+    .divider {
+      width: 1px;
+      height: 18px;
+      background: var(--border-subtle);
+      align-self: center;
+    }
+
+    /* Passage Navigator */
+    .passage-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+    }
+
+    .passage-nav-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-dim);
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      transition: all 0.15s ease;
+    }
+
+    .passage-nav-btn:hover {
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+    }
+
+    /* -------------------------------------------------------------
+       6. LIVE HUD / STATS BANNER
+       ------------------------------------------------------------- */
+    .hud-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0 0.5rem 0.85rem;
+      min-height: 62px;
+    }
+
+    .hud-primary {
+      display: flex;
+      align-items: baseline;
+      gap: 2rem;
+    }
+
+    .hud-stat-box {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hud-label {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.2rem;
+    }
+
+    .hud-value {
+      font-size: 2.25rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: var(--neon-cyan);
+      line-height: 1;
+      text-shadow: 0 0 14px var(--neon-cyan-glow);
+    }
+
+    .hud-value.green {
+      color: var(--neon-green);
+      text-shadow: 0 0 14px var(--neon-green-glow);
+    }
+
+    .hud-value.yellow {
+      color: var(--gold-streak);
+      text-shadow: 0 0 14px var(--gold-glow);
+    }
+
+    .hud-value.red {
+      color: var(--crimson-red);
+      text-shadow: 0 0 14px var(--crimson-red-glow);
+    }
+
+    .streak-container {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255, 215, 0, 0.08);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      animation: streak-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .streak-container.hidden {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .streak-flame {
+      font-size: 1.15rem;
+    }
+
+    .streak-count {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--gold-streak);
+      font-size: 0.95rem;
+      text-shadow: 0 0 10px var(--gold-glow);
+    }
+
+    .sudden-death-hearts {
+      display: flex;
+      gap: 0.35rem;
+      font-size: 1.25rem;
+    }
+
+    /* -------------------------------------------------------------
+       7. TYPING CANVAS & TEXT CONTAINER
+       ------------------------------------------------------------- */
+    .typing-wrapper {
+      position: relative;
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 2.25rem 2.5rem;
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      cursor: text;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      overflow: hidden;
+    }
+
+    .typing-wrapper:focus-within {
+      border-color: var(--border-bright);
+      box-shadow: 0 0 35px var(--neon-cyan-glow);
+    }
+
+    .typing-wrapper.error-pulse {
+      box-shadow: inset 0 0 35px var(--crimson-red-glow), 0 0 25px var(--crimson-red-glow) !important;
+      border-color: var(--crimson-red) !important;
+    }
+
+    /* Hidden input to capture keystrokes reliably */
+    #hiddenInput {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      left: -9999px;
+      top: -9999px;
+    }
+
+    /* Sleek Sliding Caret */
+    #caret {
+      position: absolute;
+      width: 3px;
+      height: 2.4rem;
+      background: var(--neon-cyan);
+      box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+      border-radius: 2px;
+      transition: left 0.075s cubic-bezier(0.2, 0.9, 0.2, 1), top 0.075s cubic-bezier(0.2, 0.9, 0.2, 1), background 0.25s ease, box-shadow 0.25s ease;
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0;
+    }
+
+    #caret.blinking {
+      animation: caret-blink 0.95s infinite;
+    }
+
+    /* Passage box with fixed line height and mask */
+    #wordsContainer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      font-size: 2.15rem;
+      line-height: 1.85;
+      max-height: 195px;
+      overflow: hidden;
+      position: relative;
+      user-select: none;
+    }
+
+    .word {
+      display: inline-flex;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .char {
+      position: relative;
+      color: var(--text-muted);
+      transition: color 0.08s ease, text-shadow 0.08s ease;
+    }
+
+    .char.correct {
+      color: var(--neon-green) !important;
+      text-shadow: 0 0 12px var(--neon-green-glow);
+    }
+
+    .char.incorrect {
+      color: var(--crimson-red) !important;
+      text-shadow: 0 0 12px var(--crimson-red-glow);
+      text-decoration: underline 2px var(--crimson-red);
+    }
+
+    .char.extra {
+      color: #ff0055 !important;
+      opacity: 0.85;
+      text-decoration: line-through;
+    }
+
+    .word.has-error {
+      border-bottom: 2px dashed var(--crimson-red-glow);
+    }
+
+    .click-to-focus-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      color: var(--text-dim);
+      font-size: 1rem;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      z-index: 20;
+      transition: opacity 0.2s ease;
+    }
+
+    .click-to-focus-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .pulse-kbd {
+      background: var(--surface-3);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-bright);
+      color: var(--neon-cyan);
+    }
+
+    /* -------------------------------------------------------------
+       8. ACTION BAR & KEY HINTS
+       ------------------------------------------------------------- */
+    .action-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 1.75rem;
+    }
+
+    .restart-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-dim);
+      padding: 0.65rem 1.4rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.2s ease;
+    }
+
+    .restart-btn:hover {
+      background: var(--surface-3);
+      color: var(--neon-cyan);
+      border-color: var(--neon-cyan);
+      transform: translateY(-2px);
+      box-shadow: 0 0 16px var(--neon-cyan-glow);
+    }
+
+    .key-hint {
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    .key-hint kbd {
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 0.15rem 0.45rem;
+      color: var(--text-dim);
+    }
+
+    /* -------------------------------------------------------------
+       9. RESULTS SCREEN & SVG PERFORMANCE GRAPH
+       ------------------------------------------------------------- */
+    .results-screen {
+      display: none;
+      animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 850px) {
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stat-hero-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .stat-hero-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-hero-label {
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-hero-num {
+      font-size: 3.6rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      line-height: 1;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 20px var(--neon-cyan-glow);
+    }
+
+    .stat-hero-num.green {
+      color: var(--neon-green);
+      text-shadow: 0 0 20px var(--neon-green-glow);
+    }
+
+    .sub-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.1rem;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 1.25rem;
+    }
+
+    .sub-stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sub-stat-label {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    .sub-stat-val {
+      font-size: 1.35rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: var(--text-bright);
+    }
+
+    /* SVG Chart Card */
+    .chart-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .chart-title {
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .chart-legend {
+      display: flex;
+      gap: 1.25rem;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .svg-chart-container {
+      width: 100%;
+      height: 240px;
+      position: relative;
+    }
+
+    .chart-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .chart-tooltip {
+      position: absolute;
+      background: var(--surface-3);
+      border: 1px solid var(--neon-cyan);
+      border-radius: 6px;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      color: var(--text-bright);
+      pointer-events: none;
+      transform: translate(-50%, -125%);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      white-space: nowrap;
+      z-index: 30;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.85);
+    }
+
+    /* -------------------------------------------------------------
+       10. COMMON MODAL STYLES
+       ------------------------------------------------------------- */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      padding: 1.5rem;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-window {
+      background: var(--surface-1);
+      border: 1px solid var(--border-bright);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 820px;
+      max-height: 86vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.95), 0 0 30px var(--neon-cyan-glow);
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
+      overflow: hidden;
+    }
+
+    .modal-backdrop.open .modal-window {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      padding: 1.25rem 1.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0.25rem;
+      border-radius: 6px;
+      transition: color 0.15s ease;
+    }
+
+    .modal-close:hover {
+      color: var(--neon-cyan);
+    }
+
+    /* Modal Navigation Tabs */
+    .modal-tabs {
+      display: flex;
+      padding: 0.5rem 1.75rem 0;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border-subtle);
+      gap: 1rem;
+    }
+
+    .modal-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.65rem 0.85rem;
+      font-size: 0.85rem;
+      font-family: var(--font-ui);
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.15s ease;
+    }
+
+    .modal-tab-btn:hover {
+      color: var(--text-bright);
+    }
+
+    .modal-tab-btn.active {
+      color: var(--neon-cyan);
+    }
+
+    .modal-tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--neon-cyan);
+      box-shadow: 0 0 8px var(--neon-cyan);
+    }
+
+    .modal-search {
+      padding: 1rem 1.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--surface-1);
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      color: var(--text-bright);
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 12px var(--neon-cyan-glow);
+    }
+
+    .modal-body {
+      padding: 1.25rem 1.75rem;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .alt-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .alt-table th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .alt-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-dim);
+    }
+
+    .alt-table tr:hover td {
+      background: var(--surface-2);
+      color: var(--text-bright);
+    }
+
+    .alt-badge {
+      background: var(--surface-3);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      color: var(--neon-cyan);
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: inline-block;
+    }
+
+    .glyph-display {
+      font-size: 1.7rem;
+      color: var(--neon-green);
+      font-family: var(--font-kruti);
+    }
+
+    .devanagari-meaning {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 1.1rem;
+      color: var(--text-bright);
+    }
+
+    .copy-btn {
+      background: var(--surface-3);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-dim);
+      padding: 0.32rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .copy-btn:hover {
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+    }
+
+    .insert-btn {
+      background: rgba(0, 229, 255, 0.1);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      color: var(--neon-cyan);
+      padding: 0.32rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      margin-left: 0.4rem;
+      transition: all 0.15s ease;
+    }
+
+    .insert-btn:hover {
+      background: var(--neon-cyan);
+      color: #000;
+    }
+
+    /* Remington Layout Reference Grid */
+    .remington-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 0.85rem;
+    }
+
+    .remington-key-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .remington-key-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .remington-key-kbd {
+      background: var(--surface-3);
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      border: 1px solid var(--border-bright);
+      color: var(--text-bright);
+      font-weight: 700;
+    }
+
+    .remington-key-body {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .remington-glyph {
+      font-family: var(--font-kruti);
+      font-size: 1.6rem;
+      color: var(--neon-cyan);
+    }
+
+    .remington-hindi {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 1rem;
+      color: var(--text-dim);
+    }
+
+    /* -------------------------------------------------------------
+       11. THEME & COLOR STUDIO STYLES
+       ------------------------------------------------------------- */
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1rem;
+    }
+
+    .theme-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.1rem;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      position: relative;
+    }
+
+    .theme-card:hover {
+      border-color: var(--border-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+    }
+
+    .theme-card.active {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 16px var(--neon-cyan-glow);
+      background: var(--surface-3);
+    }
+
+    .theme-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .theme-card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-bright);
+    }
+
+    .theme-badge-active {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--neon-cyan);
+      font-weight: 700;
+      display: none;
+    }
+
+    .theme-card.active .theme-badge-active {
+      display: block;
+    }
+
+    .theme-palette-preview {
+      display: flex;
+      height: 26px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .theme-palette-color {
+      flex: 1;
+      height: 100%;
+    }
+
+    /* Customizer Form */
+    .custom-theme-builder {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .custom-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .picker-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .picker-label {
+      font-size: 0.74rem;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .picker-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 0.4rem 0.6rem;
+    }
+
+    .picker-controls input[type="color"] {
+      -webkit-appearance: none;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      cursor: pointer;
+      background: none;
+      padding: 0;
+    }
+
+    .picker-controls input[type="color"]::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    .picker-controls input[type="color"]::-webkit-color-swatch {
+      border: 1px solid var(--border-bright);
+      border-radius: 6px;
+    }
+
+    .picker-hex-input {
+      background: transparent;
+      border: none;
+      color: var(--text-bright);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      width: 85px;
+      outline: none;
+      text-transform: uppercase;
+    }
+
+    .preview-chip-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border-bright);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: background 0.25s ease;
+    }
+
+    .preview-chip-title {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .preview-text-sample {
+      font-family: var(--font-kruti);
+      font-size: 2.1rem;
+      line-height: 1.5;
+    }
+
+    /* -------------------------------------------------------------
+       12. PARTICLE CANVAS FOR STREAK REWARDS
+       ------------------------------------------------------------- */
+    #particleCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* -------------------------------------------------------------
+       13. FOOTER
+       ------------------------------------------------------------- */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--neon-cyan);
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particleCanvas"></canvas>
+
+  <div class="app-container">
+    
+    <!-- HEADER -->
+    <header>
+      <div class="brand" onclick="resetTest()">
+        <div class="brand-logo">क</div>
+        <div class="brand-title">
+          <span>KrutiDev Type</span>
+          <span>HINDI SPEED TEST</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="font-badge" id="fontStatusBadge" title="Font Status">
+          <span class="font-indicator" id="fontIndicator"></span>
+          <span id="fontStatusText">Kruti Dev 010</span>
+        </div>
+
+        <button class="icon-btn" id="themeBtn" onclick="openThemeModal()" title="Customize Theme & Colors">
+          <span>🎨</span>
+          <span id="themeBtnText">AMOLED</span>
+        </button>
+
+        <button class="icon-btn" id="soundToggleBtn" onclick="toggleAudio()" title="Toggle Keyboard Audio">
+          <span id="soundIcon">🔊</span>
+          <span id="soundText">Sound ON</span>
+        </button>
+
+        <button class="icon-btn" onclick="openAltModal('codes')" title="Kruti Dev Alt Codes Helper">
+          <span>⌨️</span>
+          <span>Alt Codes</span>
+        </button>
+
+        <button class="icon-btn" onclick="openAltModal('layout')" title="Remington Layout Map">
+          <span>🗺️</span>
+          <span>Key Map</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN GAME WORKSPACE -->
+    <main style="display: flex; flex-direction: column; justify-content: center; margin: 1.25rem 0;">
+      
+      <!-- MODE & PASSAGE SELECTOR (MONKEYTYPE STYLE) -->
+      <div class="controls-bar" id="modeControls">
+        
+        <!-- Mode Type -->
+        <div class="pill-group">
+          <button class="pill-btn active" data-mode="time" onclick="setGameMode('time')">
+            <span>⏱️</span> Time
+          </button>
+          <button class="pill-btn" data-mode="words" onclick="setGameMode('words')">
+            <span>📝</span> Words
+          </button>
+          <button class="pill-btn" data-mode="sudden_death" onclick="setGameMode('sudden_death')">
+            <span>💀</span> Sudden Death
+          </button>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Mode Sub-options -->
+        <div class="pill-group" id="subOptionsGroup">
+          <button class="pill-btn active" data-val="60" onclick="setSubOption(60)">1 min</button>
+          <button class="pill-btn" data-val="300" onclick="setSubOption(300)">5 min</button>
+          <button class="pill-btn" data-val="600" onclick="setSubOption(600)">10 min</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Passage Switcher -->
+        <div class="passage-nav">
+          <button class="passage-nav-btn" onclick="prevPassage()" title="Previous Passage">&lt;</button>
+          <span id="passageTitleLabel">Passage 1/8</span>
+          <button class="passage-nav-btn" onclick="nextPassage()" title="Next Passage">&gt;</button>
+        </div>
+
+      </div>
+
+      <!-- LIVE HUD STATS -->
+      <div class="hud-banner">
+        <div class="hud-primary">
+          <div class="hud-stat-box">
+            <span class="hud-label" id="timerOrWordsLabel">Time Left</span>
+            <span class="hud-value" id="hudCounter">30</span>
+          </div>
+          <div class="hud-stat-box">
+            <span class="hud-label">Live WPM</span>
+            <span class="hud-value green" id="hudWpm">0</span>
+          </div>
+          <div class="hud-stat-box">
+            <span class="hud-label">Accuracy</span>
+            <span class="hud-value" id="hudAcc">100%</span>
+          </div>
+        </div>
+
+        <div class="hud-secondary" style="display: flex; align-items: center; gap: 1rem;">
+          <div class="sudden-death-hearts" id="suddenDeathHearts" style="display: none;">
+            <span id="heart1">❤️</span>
+            <span id="heart2">❤️</span>
+            <span id="heart3">❤️</span>
+          </div>
+
+          <div class="streak-container hidden" id="streakBadge">
+            <span class="streak-flame">🔥</span>
+            <span class="streak-count" id="streakCount">0x Streak</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TYPING DISPLAY BOX -->
+      <div class="typing-wrapper" id="typingWrapper" onclick="focusInput()">
+        <input type="text" id="hiddenInput" autocomplete="off" autocapitalize="off" spellcheck="false">
+        <div id="caret"></div>
+        <div id="wordsContainer" class="kruti-text"></div>
+        
+        <!-- Focus Overlay -->
+        <div class="click-to-focus-overlay" id="focusOverlay">
+          <div><span class="pulse-kbd">Click here</span> or press any key to focus</div>
+          <div style="font-size: 0.8rem; color: var(--text-muted);">QWERTY keystrokes map natively to Kruti Dev Devanagari</div>
+        </div>
+      </div>
+
+      <!-- ACTION BAR -->
+      <div class="action-bar">
+        <button class="restart-btn" onclick="resetTest()" title="Restart Typing Test">
+          <span>🔄</span>
+          <span>Restart Test</span>
+        </button>
+        <span class="key-hint"><kbd>Tab</kbd> + <kbd>Enter</kbd> or <kbd>Esc</kbd> to quickly restart</span>
+      </div>
+
+      <!-- RESULTS SCREEN -->
+      <div class="results-screen" id="resultsScreen">
+        
+        <div class="results-grid">
+          <!-- Main Hero Stat Card -->
+          <div class="stat-hero-card">
+            <div class="stat-hero-group">
+              <span class="stat-hero-label">Net WPM</span>
+              <span class="stat-hero-num" id="resNetWpm">0</span>
+            </div>
+
+            <div class="stat-hero-group">
+              <span class="stat-hero-label">Accuracy</span>
+              <span class="stat-hero-num green" id="resAccuracy">0%</span>
+            </div>
+
+            <div class="sub-stats-grid">
+              <div class="sub-stat-item">
+                <span class="sub-stat-label">Gross WPM</span>
+                <span class="sub-stat-val" id="resGrossWpm">0</span>
+              </div>
+              <div class="sub-stat-item">
+                <span class="sub-stat-label">Max Streak</span>
+                <span class="sub-stat-val" id="resMaxStreak" style="color: var(--gold-streak);">0x</span>
+              </div>
+              <div class="sub-stat-item">
+                <span class="sub-stat-label">Keystrokes</span>
+                <span class="sub-stat-val" id="resKeystrokes">0/0</span>
+              </div>
+              <div class="sub-stat-item">
+                <span class="sub-stat-label">Time Taken</span>
+                <span class="sub-stat-val" id="resTime">0s</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive SVG Performance Chart -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <span class="chart-title">WPM & Error Trajectory</span>
+              <div class="chart-legend">
+                <div class="legend-item">
+                  <span class="legend-dot" style="background: var(--neon-cyan);"></span>
+                  <span>WPM</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot" style="background: var(--crimson-red);"></span>
+                  <span>Errors</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="svg-chart-container">
+              <div class="chart-tooltip" id="chartTooltip"></div>
+              <svg class="chart-svg" id="chartSvg" viewBox="0 0 600 200" preserveAspectRatio="none">
+                <!-- Grid & Paths dynamically rendered via JS -->
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 1rem;">
+          <button class="restart-btn" style="background: var(--neon-cyan); color: #000; border-color: var(--neon-cyan); font-weight: 700;" onclick="resetTest()">
+            <span>🔄</span> Try Again
+          </button>
+          <button class="restart-btn" onclick="nextPassage()">
+            <span>➡️</span> Next Passage
+          </button>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>
+        <span>Kruti Dev 010 Typing Engine</span> &bull; 
+        <span>Remington Hindi Keyboard Protocol</span>
+      </div>
+      <div class="footer-links">
+        <a href="javascript:void(0)" onclick="openThemeModal()">Theme & Colors</a>
+        <a href="javascript:void(0)" onclick="openAltModal('codes')">Alt Codes Table</a>
+        <a href="javascript:void(0)" onclick="openAltModal('layout')">Keyboard Layout Cheat Sheet</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- THEME & COLOR STUDIO MODAL -->
+  <div class="modal-backdrop" id="themeModal" onclick="handleThemeModalBackdropClick(event)">
+    <div class="modal-window" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>🎨</span>
+          <span>Theme & Color Studio</span>
+        </div>
+        <button class="modal-close" onclick="closeThemeModal()">&times;</button>
+      </div>
+
+      <div class="modal-tabs">
+        <button class="modal-tab-btn active" id="tabBtnThemePresets" onclick="switchThemeTab('presets')">Preset Themes (10)</button>
+        <button class="modal-tab-btn" id="tabBtnThemeCustom" onclick="switchThemeTab('custom')">Custom Color Builder</button>
+      </div>
+
+      <div class="modal-body" style="padding: 1.5rem 1.75rem;">
+        <!-- Tab 1: Presets -->
+        <div id="tabContentThemePresets">
+          <div class="theme-grid" id="presetThemesGrid">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+
+        <!-- Tab 2: Custom Builder -->
+        <div id="tabContentThemeCustom" style="display: none;">
+          <div class="custom-theme-builder">
+            <div class="custom-picker-grid">
+              
+              <div class="picker-item">
+                <span class="picker-label">Background Color</span>
+                <div class="picker-controls">
+                  <input type="color" id="pickerBg" value="#000000" oninput="onCustomColorInput()">
+                  <input type="text" id="hexBg" class="picker-hex-input" value="#000000" onchange="onCustomHexInput('pickerBg', this.value)">
+                </div>
+              </div>
+
+              <div class="picker-item">
+                <span class="picker-label">Surface / Cards</span>
+                <div class="picker-controls">
+                  <input type="color" id="pickerSurface" value="#090a0d" oninput="onCustomColorInput()">
+                  <input type="text" id="hexSurface" class="picker-hex-input" value="#090A0D" onchange="onCustomHexInput('pickerSurface', this.value)">
+                </div>
+              </div>
+
+              <div class="picker-item">
+                <span class="picker-label">Primary Accent / Caret</span>
+                <div class="picker-controls">
+                  <input type="color" id="pickerAccent" value="#00E5FF" oninput="onCustomColorInput()">
+                  <input type="text" id="hexAccent" class="picker-hex-input" value="#00E5FF" onchange="onCustomHexInput('pickerAccent', this.value)">
+                </div>
+              </div>
+
+              <div class="picker-item">
+                <span class="picker-label">Correct Character</span>
+                <div class="picker-controls">
+                  <input type="color" id="pickerCorrect" value="#00FF66" oninput="onCustomColorInput()">
+                  <input type="text" id="hexCorrect" class="picker-hex-input" value="#00FF66" onchange="onCustomHexInput('pickerCorrect', this.value)">
+                </div>
+              </div>
+
+              <div class="picker-item">
+                <span class="picker-label">Error Character</span>
+                <div class="picker-controls">
+                  <input type="color" id="pickerError" value="#FF3366" oninput="onCustomColorInput()">
+                  <input type="text" id="hexError" class="picker-hex-input" value="#FF3366" onchange="onCustomHexInput('pickerError', this.value)">
+                </div>
+              </div>
+
+              <div class="picker-item">
+                <span class="picker-label">Muted / Upcoming Text</span>
+                <div class="picker-controls">
+                  <input type="color" id="pickerMuted" value="#575e6e" oninput="onCustomColorInput()">
+                  <input type="text" id="hexMuted" class="picker-hex-input" value="#575E6E" onchange="onCustomHexInput('pickerMuted', this.value)">
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Live Sample Card -->
+            <div class="preview-chip-card">
+              <span class="preview-chip-title">Live Sample Preview</span>
+              <div class="preview-text-sample">
+                <span style="color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green-glow);">Hkk</span><span style="color: var(--crimson-red); text-shadow: 0 0 10px var(--crimson-red-glow); text-decoration: underline 2px var(--crimson-red);">j</span><span style="border-left: 3px solid var(--neon-cyan); box-shadow: 0 0 8px var(--neon-cyan); margin-left: 2px;"></span><span style="color: var(--text-muted);">r gekjk ns'k gSA</span>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-dim); font-family: var(--font-mono);">
+                (Displays: <span style="color: var(--neon-green);">भा</span><span style="color: var(--crimson-red);">र</span><span style="color: var(--text-muted);">त हमारा देश है।</span>)
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: flex; justify-content: flex-end; gap: 0.75rem; flex-wrap: wrap;">
+              <button class="restart-btn" onclick="resetDefaultTheme()">
+                <span>🔄</span> Reset to AMOLED Default
+              </button>
+              <button class="restart-btn" style="background: var(--neon-cyan); color: #000; border-color: var(--neon-cyan); font-weight: 700;" onclick="saveCustomTheme()">
+                <span>💾</span> Save & Apply
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALT CODES & KEYBOARD MODAL -->
+  <div class="modal-backdrop" id="altModal" onclick="handleModalBackdropClick(event)">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>⌨️</span>
+          <span>Kruti Dev 010 Reference & Helpers</span>
+        </div>
+        <button class="modal-close" onclick="closeAltModal()">&times;</button>
+      </div>
+
+      <!-- Tabs -->
+      <div class="modal-tabs">
+        <button class="modal-tab-btn active" id="tabBtnCodes" onclick="switchModalTab('codes')">Alt-Codes Table</button>
+        <button class="modal-tab-btn" id="tabBtnLayout" onclick="switchModalTab('layout')">Remington Keyboard Layout</button>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="modal-search">
+        <input type="text" id="altSearchInput" class="search-input" placeholder="Search Alt code (e.g. 0216, 0161), Devanagari character (क्र, द्ध), or English key..." oninput="filterModalContent()">
+      </div>
+
+      <div class="modal-body">
+        <!-- Tab 1: Alt Codes Table -->
+        <div id="tabContentCodes">
+          <table class="alt-table">
+            <thead>
+              <tr>
+                <th>Alt Code</th>
+                <th>Kruti Dev Glyph</th>
+                <th>Hindi Equivalent</th>
+                <th>English Char</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="altTableBody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tab 2: Keyboard Layout Reference -->
+        <div id="tabContentLayout" style="display: none;">
+          <div style="margin-bottom: 1rem; font-size: 0.82rem; color: var(--text-dim);">
+            Standard Remington layout key mapping for Kruti Dev 010 font. Normal keypresses vs Shift keypresses:
+          </div>
+          <div class="remington-grid" id="remingtonGrid">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT ENGINE -->
+  <script>
+    /* ==========================================================================
+       1. DATASETS, THEMES & PASSAGES (REAL KRUTI DEV ASCII ENCODINGS)
+       ========================================================================== */
+    // Note: In Kruti Dev 010, the font internally renders ASCII strings into Hindi!
+    // Example: "Hkkjr gekjk ns'k gSA" -> "भारत हमारा देश है।"
+    const PASSAGES = [
+      {
+        title: "भारत देश",
+        kruti: "Hkkjr gekjk ns'k gSA ;gk¡ vusd /keZ] Hkk\"kk,¡ vkSj laLÑfr;k¡ ,d lkFk feyrh gSaA gekjh laLÑfr lcls izkphu vkSj egku gSA gekjs ns'k esa fofo/krk esa ,drk gh gekjh lcls cM+h rkdr gSA ;gk¡ ds yksx feytqydj jgrs gSa vkSj ,d nwljs ds R;ksgkjksa dks mRlkg ls eukrs gSaA"
+      },
+      {
+        title: "समय का महत्व",
+        kruti: "le; cgqr ewY;oku gksrk gSA x;k gqvk le; dHkh okil ugha vkrkA blfy, gesa vius le; dk lgh lnqi;ksx djuk pkfg, vkSj vkyL; ls nwj jguk pkfg,A tks yksx le; dh dnz djrs gSa] le; Hkh mUgsa lQyrk ds f'k[kj ij igqapk nsrk gSA le; dk gj iy vuewy gSA"
+      },
+      {
+        title: "परिश्रम और सफलता",
+        kruti: "ifjJe gh lQyrk dh dqath gSA fcuk ifjJe ds thou esa dqN Hkh gkfly ugha fd;k tk ldrk gSA tks O;fDr fujarj iz;kl djrk gS] mls lQyrk vo'; feyrh gSA dfBu ifjJe vkSj n`<+ ladYi ls vlEHko dk;Z Hkh laHko gks tkrk gSA gesa dHkh Hkh gkj ugha ekuuh pkfg,A"
+      },
+      {
+        title: "शिक्षा और ज्ञान",
+        kruti: "f'k{kk euq\"; dks lPpk Kku vkSj laLdkj nsrh gSA ;g lekt esa ldkjkRed cnyko ykus dk lcls 'kfDr'kkyh ek/;e gSA f'kf{kr lekt gh ns'k dh rjDdh dk vk/kkj gSA f'k{kk ls gh ge lgh vkSj xyr ds chp dk varj le> ldrs gSa vkSj vius thou dks csgrj cuk ldrs gSaA"
+      },
+      {
+        title: "स्वास्थ्य का महत्व",
+        kruti: "LokLF; gh lPpk /ku gSA LoLFk 'kjhj esa gh LoLFk efLr\"d dk fuokl gksrk gSA gesa jkstkuk O;k;ke djuk pkfg, vkSj ikSf\"Vd vkgkj ysuk pkfg,A vkt dh HkkxnkSM+ Hkjh fTk+anxh esa vius LokLF; dk /;ku j[kuk lcls egRoiw.kZ gSA LoLFk jgdj gh ge lHkh dk;Z dq'kyrk ls dj ldrs gSaA"
+      },
+      {
+        title: "प्रकृति और पर्यावरण",
+        kruti: "o`{k gekjs thou dk vk/kkj gSaA os gesa vkWDlhtu] Qy] Qwy vkSj Nk;k iznku djrs gSaA gesa vf/kd ls vf/kd isM+ yxkus pkfg, vkSj i;kZoj.k dh j{kk djuh pkfg,A LoPN i;kZoj.k gh gekjs vkus okys Hkfo\"; dks lqjf{kr cuk ldrk gSA izÑfr dk larqyu cuk, j[kuk gekjk drZO; gSA"
+      },
+      {
+        title: "विज्ञान का चमत्कार",
+        kruti: "foKku us gekjs thou dks ljy vkSj lqfo/kktud cuk fn;k gSA vkt lapkj] ;krk;kr vkSj fpfdRlk ds {ks= esa foKku us vnHkqr izxfr dh gSA baVjusV us iwjh nqfu;k dks ,d xk¡o dh rjg tksM+ fn;k gSA foKku ds fcuk vkt ds vk/kqfud thou dh dYiuk djuk Hkh vlaHko gSA"
+      },
+      {
+        title: "महात्मा गांधी के विचार",
+        kruti: "vfgalk vkSj lR; gekjs jk\"Vªfirk egkRek xka/kh ds nks eq[; fl)kar FksA mUgksaus vius lR;kxzgy vkSj vfgalk ds cy ij ns'k dks vktknh fnyk;hA mudk thou gesa lknxh] lPpkbZ vkSj lefiZr Hkko ls ns'k lsok djus dh izsj.kk nsrk gSA"
+      }
+    ];
+
+    // Kruti Dev Remington Alt-Codes Cheat Sheet
+    const ALT_CODES_DATA = [
+      { code: "0161", glyph: "¡", hindi: "द्ध", engKey: "Alt + 0161", desc: "संयुक्त अक्षर (द्ध)" },
+      { code: "0163", glyph: "£", hindi: "क्र", engKey: "Alt + 0163", desc: "संयुक्त अक्षर (क्र)" },
+      { code: "0165", glyph: "¥", hindi: "द्व", engKey: "Alt + 0165", desc: "संयुक्त अक्षर (द्व)" },
+      { code: "0170", glyph: "ª", hindi: "त्र", engKey: "Alt + 0170", desc: "संयुक्त अक्षर (त्र)" },
+      { code: "0178", glyph: "²", hindi: "ष्ट", engKey: "Alt + 0178", desc: "हलंत युक्त (ष्ट)" },
+      { code: "0179", glyph: "³", hindi: "द्द", engKey: "Alt + 0179", desc: "संयुक्त अक्षर (द्द)" },
+      { code: "0180", glyph: "´", hindi: "द्ध", engKey: "Alt + 0180", desc: "संयुक्त अक्षर (द्ध)" },
+      { code: "0182", glyph: "µ", hindi: "द्य", engKey: "Alt + 0182", desc: "संयुक्त अक्षर (द्य)" },
+      { code: "0188", glyph: "¼", hindi: "ड्र", engKey: "Alt + 0188", desc: "र-पदेन अक्षर (ड्र)" },
+      { code: "0197", glyph: "Å", hindi: "ट्र", engKey: "Alt + 0197", desc: "र-पदेन अक्षर (ट्र)" },
+      { code: "0199", glyph: "Ç", hindi: "ष्ठ", engKey: "Alt + 0199", desc: "संयुक्त अक्षर (ष्ठ)" },
+      { code: "0204", glyph: "Ì", hindi: "ष्ट", engKey: "Alt + 0204", desc: "संयुक्त अक्षर (ष्ट)" },
+      { code: "0205", glyph: "Í", hindi: "फ्र", engKey: "Alt + 0205", desc: "र-पदेन अक्षर (फ्र)" },
+      { code: "0206", glyph: "Î", hindi: "द्र", engKey: "Alt + 0206", desc: "र-पदेन अक्षर (द्र)" },
+      { code: "0216", glyph: "Ø", hindi: "क्र", engKey: "Alt + 0216", desc: "र-पदेन अक्षर (क्र)" },
+      { code: "0221", glyph: "Ý", hindi: "ङ्क", engKey: "Alt + 0221", desc: "संयुक्त अक्षर (ङ्क)" },
+      { code: "0226", glyph: "â", hindi: "द्य", engKey: "Alt + 0226", desc: "संयुक्त अक्षर (द्य)" },
+      { code: "0227", glyph: "ã", hindi: "क्त", engKey: "Alt + 0227", desc: "संयुक्त अक्षर (क्त)" },
+      { code: "0230", glyph: "æ", hindi: "ङ्ग", engKey: "Alt + 0230", desc: "संयुक्त अक्षर (ङ्ग)" },
+      { code: "0244", glyph: "ô", hindi: "ॐ", engKey: "Alt + 0244", desc: "पवित्र प्रतीक (ॐ)" }
+    ];
+
+    // Remington Basic Key Reference
+    const REMINGTON_KEYS = [
+      { key: "d", shift: "D", glyph: "d", shiftGlyph: "D", hindi: "क", shiftHindi: "क्" },
+      { key: "k", shift: "K", glyph: "k", shiftGlyph: "K", hindi: "ा (आ)", shiftHindi: "ज्ञ" },
+      { key: "j", shift: "J", glyph: "j", shiftGlyph: "J", hindi: "र", shiftHindi: "श्र" },
+      { key: "e", shift: "E", glyph: "e", shiftGlyph: "E", hindi: "म", shiftHindi: "म्" },
+      { key: "r", shift: "R", glyph: "r", shiftGlyph: "R", hindi: "त", shiftHindi: "त्" },
+      { key: "t", shift: "T", glyph: "t", shiftGlyph: "T", hindi: "ज", shiftHindi: "ज्" },
+      { key: "y", shift: "Y", glyph: "y", shiftGlyph: "Y", hindi: "ल", shiftHindi: "ल्" },
+      { key: "u", shift: "U", glyph: "u", shiftGlyph: "U", hindi: "न", shiftHindi: "न्" },
+      { key: "i", shift: "I", glyph: "i", shiftGlyph: "I", hindi: "प", shiftHindi: "प्" },
+      { key: "o", shift: "O", glyph: "o", shiftGlyph: "O", hindi: "व", shiftHindi: "व्" },
+      { key: "p", shift: "P", glyph: "p", shiftGlyph: "P", hindi: "च", shiftHindi: "च्" },
+      { key: "s", shift: "S", glyph: "s", shiftGlyph: "S", hindi: "े (ए)", shiftHindi: "ै (ऐ)" },
+      { key: "f", shift: "F", glyph: "f", shiftGlyph: "F", hindi: "ि (इ)", shiftHindi: "थ्" },
+      { key: "g", shift: "G", glyph: "g", shiftGlyph: "G", hindi: "ह", shiftHindi: "भ" },
+      { key: "h", shift: "H", glyph: "h", shiftGlyph: "H", hindi: "ी (ई)", shiftHindi: "भ्" },
+      { key: "l", shift: "L", glyph: "l", shiftGlyph: "L", hindi: "स", shiftHindi: "स्" },
+      { key: ";", shift: ":", glyph: ";", shiftGlyph: ":", hindi: "य", shiftHindi: "रू" },
+      { key: "a", shift: "A", glyph: "a", shiftGlyph: "A", hindi: "ं (अनुस्वार)", shiftHindi: "। (पूर्णविराम)" },
+      { key: "q", shift: "Q", glyph: "q", shiftGlyph: "Q", hindi: "ु (उ)", shiftHindi: "फ" },
+      { key: "w", shift: "W", glyph: "w", shiftGlyph: "W", hindi: "ू (ऊ)", shiftHindi: "ॉ (चन्द्र)" },
+      { key: "x", shift: "X", glyph: "x", shiftGlyph: "X", hindi: "ग", shiftHindi: "ग्" },
+      { key: "c", shift: "C", glyph: "c", shiftGlyph: "C", hindi: "ब", shiftHindi: "ब्" },
+      { key: "v", shift: "V", glyph: "v", shiftGlyph: "V", hindi: "अ", shiftHindi: "ट" },
+      { key: "b", shift: "B", glyph: "b", shiftGlyph: "B", hindi: "इ", shiftHindi: "ठ" },
+      { key: "n", shift: "N", glyph: "n", shiftGlyph: "N", hindi: "द", shiftHindi: "छ" },
+      { key: "m", shift: "M", glyph: "m", shiftGlyph: "M", hindi: "उ", shiftHindi: "ड" },
+      { key: "[", shift: "{", glyph: "[", shiftGlyph: "{", hindi: "ख", shiftHindi: "क्ष" },
+      { key: "]", shift: "}", glyph: "]", shiftGlyph: "}", hindi: ", (अल्पविराम)", shiftHindi: "द्व" }
+    ];
+
+    // Curated Theme Presets
+    const THEME_PRESETS = [
+      {
+        id: 'amoled',
+        name: 'AMOLED Black',
+        bg: '#000000',
+        surface1: '#090a0d',
+        surface2: '#121318',
+        surface3: '#1a1b23',
+        borderSubtle: '#222530',
+        borderBright: '#353849',
+        accent: '#00E5FF',
+        correct: '#00FF66',
+        error: '#FF3366',
+        textMuted: '#575e6e',
+        textDim: '#8e95a7',
+        textBright: '#f0f3fa'
+      },
+      {
+        id: 'matrix',
+        name: 'Matrix Hacker',
+        bg: '#020703',
+        surface1: '#051207',
+        surface2: '#091c0c',
+        surface3: '#0f2913',
+        borderSubtle: '#13381a',
+        borderBright: '#1e5427',
+        accent: '#00FF41',
+        correct: '#39FF14',
+        error: '#FF2255',
+        textMuted: '#1f5429',
+        textDim: '#49a859',
+        textBright: '#c7ffd5'
+      },
+      {
+        id: 'cyberpunk',
+        name: 'Cyberpunk Neon',
+        bg: '#080014',
+        surface1: '#120024',
+        surface2: '#1a0033',
+        surface3: '#26004d',
+        borderSubtle: '#3b0075',
+        borderBright: '#5800b0',
+        accent: '#FF007F',
+        correct: '#00F0FF',
+        error: '#FFE600',
+        textMuted: '#734694',
+        textDim: '#b280de',
+        textBright: '#ffebf6'
+      },
+      {
+        id: 'dracula',
+        name: 'Dracula Violet',
+        bg: '#14151c',
+        surface1: '#1e1f29',
+        surface2: '#282a36',
+        surface3: '#343746',
+        borderSubtle: '#3d4052',
+        borderBright: '#565a73',
+        accent: '#BD93F9',
+        correct: '#50FA7B',
+        error: '#FF5555',
+        textMuted: '#6272a4',
+        textDim: '#95a5d4',
+        textBright: '#f8f8f2'
+      },
+      {
+        id: 'nord',
+        name: 'Nord Frost',
+        bg: '#101318',
+        surface1: '#171b22',
+        surface2: '#1e232c',
+        surface3: '#282e3a',
+        borderSubtle: '#333b4a',
+        borderBright: '#434c5e',
+        accent: '#88C0D0',
+        correct: '#A3BE8C',
+        error: '#BF616A',
+        textMuted: '#4c566a',
+        textDim: '#81a1c1',
+        textBright: '#eceff4'
+      },
+      {
+        id: 'amber_crt',
+        name: 'Vintage Amber',
+        bg: '#080500',
+        surface1: '#120b00',
+        surface2: '#1c1200',
+        surface3: '#2b1b00',
+        borderSubtle: '#3d2700',
+        borderBright: '#5c3a00',
+        accent: '#FFB000',
+        correct: '#FFD000',
+        error: '#FF3333',
+        textMuted: '#735000',
+        textDim: '#ba8c27',
+        textBright: '#ffeaad'
+      },
+      {
+        id: 'sunset',
+        name: 'Sunset Crimson',
+        bg: '#0a0305',
+        surface1: '#14060a',
+        surface2: '#210a10',
+        surface3: '#300f18',
+        borderSubtle: '#471623',
+        borderBright: '#6e2236',
+        accent: '#FF5500',
+        correct: '#FFAA00',
+        error: '#FF1744',
+        textMuted: '#733b47',
+        textDim: '#b56d7d',
+        textBright: '#ffebe6'
+      },
+      {
+        id: 'solarized',
+        name: 'Solarized Teal',
+        bg: '#00181e',
+        surface1: '#002129',
+        surface2: '#002b36',
+        surface3: '#073642',
+        borderSubtle: '#0e4a59',
+        borderBright: '#176578',
+        accent: '#2AA198',
+        correct: '#859900',
+        error: '#DC322F',
+        textMuted: '#586e75',
+        textDim: '#839496',
+        textBright: '#fdf6e3'
+      },
+      {
+        id: 'coffee',
+        name: 'Warm Mocha',
+        bg: '#0f0a08',
+        surface1: '#17100d',
+        surface2: '#241a15',
+        surface3: '#33251e',
+        borderSubtle: '#47342b',
+        borderBright: '#664a3d',
+        accent: '#D4A373',
+        correct: '#CCD5AE',
+        error: '#E07A5F',
+        textMuted: '#7d6153',
+        textDim: '#b8998a',
+        textBright: '#faedcd'
+      },
+      {
+        id: 'lavender',
+        name: 'Midnight Lavender',
+        bg: '#0a0814',
+        surface1: '#120f21',
+        surface2: '#1a162e',
+        surface3: '#262042',
+        borderSubtle: '#372e5e',
+        borderBright: '#4f4287',
+        accent: '#C084FC',
+        correct: '#86EFAC',
+        error: '#F43F5E',
+        textMuted: '#6b5f8a',
+        textDim: '#a398c2',
+        textBright: '#f5f3ff'
+      }
+    ];
+
+    /* ==========================================================================
+       2. WEB AUDIO API SYNTHESIZER (ZERO LATENCY MECHANICAL SOUNDS)
+       ========================================================================== */
+    class AudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.enabled = true;
+        this.volume = 0.45;
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      playKeyClick() {
+        if (!this.enabled) return;
+        this.init();
+
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        // Mechanical switch click simulation (sharp transient + resonant thud)
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1400 + Math.random() * 400, now);
+        osc.frequency.exponentialRampToValueAtTime(320, now + 0.035);
+
+        gain.gain.setValueAtTime(this.volume * 0.8, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.038);
+      }
+
+      playSpaceClack() {
+        if (!this.enabled) return;
+        this.init();
+
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        // Deeper spacebar resonance
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(420, now);
+        osc.frequency.exponentialRampToValueAtTime(80, now + 0.06);
+
+        gain.gain.setValueAtTime(this.volume * 1.1, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.065);
+      }
+
+      playErrorBuzz() {
+        if (!this.enabled) return;
+        this.init();
+
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(160, now);
+        osc.frequency.linearRampToValueAtTime(110, now + 0.12);
+
+        gain.gain.setValueAtTime(this.volume * 0.7, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.13);
+      }
+
+      playStreakFanfare() {
+        if (!this.enabled) return;
+        this.init();
+
+        const now = this.ctx.currentTime;
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        notes.forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const start = now + idx * 0.07;
+          
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, start);
+
+          gain.gain.setValueAtTime(this.volume * 0.45, start);
+          gain.gain.exponentialRampToValueAtTime(0.001, start + 0.25);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.start(start);
+          osc.stop(start + 0.28);
+        });
+      }
+    }
+
+    const audio = new AudioEngine();
+
+    function toggleAudio() {
+      audio.enabled = !audio.enabled;
+      const soundIcon = document.getElementById('soundIcon');
+      const soundText = document.getElementById('soundText');
+      const soundBtn = document.getElementById('soundToggleBtn');
+
+      if (audio.enabled) {
+        soundIcon.textContent = '🔊';
+        soundText.textContent = 'Sound ON';
+        soundBtn.classList.remove('active');
+      } else {
+        soundIcon.textContent = '🔇';
+        soundText.textContent = 'Muted';
+        soundBtn.classList.add('active');
+      }
+      focusInput();
+    }
+
+    /* ==========================================================================
+       3. PARTICLE EXPLOSION SYSTEM (CANVAS)
+       ========================================================================== */
+    class ParticleEngine {
+      constructor() {
+        this.canvas = document.getElementById('particleCanvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.particles = [];
+        this.resize();
+        window.addEventListener('resize', () => this.resize());
+        this.loop();
+      }
+
+      resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }
+
+      burst(x, y, count = 35) {
+        const accent = getComputedStyle(document.documentElement).getPropertyValue('--neon-cyan').trim() || '#00E5FF';
+        const correct = getComputedStyle(document.documentElement).getPropertyValue('--neon-green').trim() || '#00FF66';
+        const streak = getComputedStyle(document.documentElement).getPropertyValue('--gold-streak').trim() || '#FFD700';
+        const colors = [accent, correct, streak, '#FFFFFF'];
+
+        for (let i = 0; i < count; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 2 + Math.random() * 6;
+          this.particles.push({
+            x,
+            y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            size: 2 + Math.random() * 4,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            alpha: 1,
+            decay: 0.015 + Math.random() * 0.02
+          });
+        }
+      }
+
+      loop() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+          const p = this.particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.1; // gentle gravity
+          p.alpha -= p.decay;
+
+          if (p.alpha <= 0) {
+            this.particles.splice(i, 1);
+            continue;
+          }
+
+          this.ctx.save();
+          this.ctx.globalAlpha = p.alpha;
+          this.ctx.fillStyle = p.color;
+          this.ctx.shadowBlur = 8;
+          this.ctx.shadowColor = p.color;
+          this.ctx.beginPath();
+          this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          this.ctx.fill();
+          this.ctx.restore();
+        }
+        requestAnimationFrame(() => this.loop());
+      }
+    }
+
+    const particles = new ParticleEngine();
+
+    /* ==========================================================================
+       4. TYPING TEST ENGINE & STATE MANAGEMENT
+       ========================================================================== */
+    const STATE = {
+      mode: 'time', // 'time', 'words', 'sudden_death'
+      subOption: 60, // 60s (1 min), 300s (5 min), 600s (10 min) or word limit 25, 50, 100
+      activePassageIndex: 0,
+      
+      // Text and character state
+      passageWords: [], // Array of string words in Kruti Dev
+      currentWordIndex: 0,
+      currentCharIndex: 0,
+      
+      // Metrics & Counters
+      startTime: null,
+      timerInterval: null,
+      secondsRemaining: 60,
+      elapsedSeconds: 0,
+      
+      totalKeystrokes: 0,
+      correctKeystrokes: 0,
+      incorrectKeystrokes: 0,
+      
+      streak: 0,
+      maxStreak: 0,
+      suddenDeathStrikes: 0,
+      
+      // Second-by-second analytics for SVG chart
+      telemetry: [],
+      secondErrors: 0,
+      
+      isStarted: false,
+      isFinished: false
+    };
+
+    // DOM Elements
+    const elements = {
+      hiddenInput: document.getElementById('hiddenInput'),
+      wordsContainer: document.getElementById('wordsContainer'),
+      caret: document.getElementById('caret'),
+      typingWrapper: document.getElementById('typingWrapper'),
+      focusOverlay: document.getElementById('focusOverlay'),
+      
+      hudCounter: document.getElementById('hudCounter'),
+      hudWpm: document.getElementById('hudWpm'),
+      hudAcc: document.getElementById('hudAcc'),
+      timerOrWordsLabel: document.getElementById('timerOrWordsLabel'),
+      streakBadge: document.getElementById('streakBadge'),
+      streakCount: document.getElementById('streakCount'),
+      suddenDeathHearts: document.getElementById('suddenDeathHearts'),
+      passageTitleLabel: document.getElementById('passageTitleLabel'),
+      
+      resultsScreen: document.getElementById('resultsScreen'),
+      chartSvg: document.getElementById('chartSvg'),
+      chartTooltip: document.getElementById('chartTooltip'),
+      modalOpen: false
+    };
+
+    /* -------------------------------------------------------------
+       Init & Mode Switchers
+       ------------------------------------------------------------- */
+    function formatTimeDisplay(sec) {
+      if (sec >= 60) {
+        const m = Math.floor(sec / 60);
+        const s = sec % 60;
+        return `${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      return `${sec}s`;
+    }
+
+    function initGame() {
+      setupFontDetection();
+      setupEventListeners();
+      populateAltModalTable();
+      populateRemingtonGrid();
+      initThemeSystem();
+      resetTest();
+    }
+
+    function setupFontDetection() {
+      const badge = document.getElementById('fontStatusBadge');
+      const indicator = document.getElementById('fontIndicator');
+      const text = document.getElementById('fontStatusText');
+
+      if (document.fonts) {
+        document.fonts.load("20px 'Kruti Dev 010'").then(() => {
+          if (document.fonts.check("20px 'Kruti Dev 010'")) {
+            indicator.classList.add('ready');
+            text.textContent = "Kruti Dev 010 Ready";
+            badge.style.borderColor = "var(--neon-green)";
+          }
+        }).catch(() => {
+          text.textContent = "Kruti Dev (Fallback)";
+        });
+      }
+    }
+
+    function setGameMode(mode) {
+      STATE.mode = mode;
+      
+      // Update UI buttons
+      document.querySelectorAll('[data-mode]').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-mode') === mode);
+      });
+
+      const subGroup = document.getElementById('subOptionsGroup');
+      subGroup.innerHTML = '';
+
+      if (mode === 'time') {
+        elements.timerOrWordsLabel.textContent = 'Time Left';
+        const opts = [
+          { val: 60, label: '1 min' },
+          { val: 300, label: '5 min' },
+          { val: 600, label: '10 min' }
+        ];
+        opts.forEach(opt => {
+          const b = document.createElement('button');
+          b.className = `pill-btn ${opt.val === 60 ? 'active' : ''}`;
+          b.textContent = opt.label;
+          b.setAttribute('data-val', opt.val);
+          b.onclick = () => setSubOption(opt.val);
+          subGroup.appendChild(b);
+        });
+        STATE.subOption = 60;
+      } else if (mode === 'words') {
+        elements.timerOrWordsLabel.textContent = 'Words Left';
+        const opts = [25, 50, 100];
+        opts.forEach(val => {
+          const b = document.createElement('button');
+          b.className = `pill-btn ${val === 50 ? 'active' : ''}`;
+          b.textContent = `${val} words`;
+          b.setAttribute('data-val', val);
+          b.onclick = () => setSubOption(val);
+          subGroup.appendChild(b);
+        });
+        STATE.subOption = 50;
+      } else if (mode === 'sudden_death') {
+        elements.timerOrWordsLabel.textContent = 'Time Elapsed';
+        const b = document.createElement('button');
+        b.className = 'pill-btn active';
+        b.textContent = '3 Strikes Max';
+        subGroup.appendChild(b);
+        STATE.subOption = 3;
+      }
+
+      resetTest();
+    }
+
+    function setSubOption(val) {
+      STATE.subOption = val;
+      document.querySelectorAll('#subOptionsGroup .pill-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-val') == val);
+      });
+      resetTest();
+    }
+
+    /* -------------------------------------------------------------
+       Passage Loading & Rendering
+       ------------------------------------------------------------- */
+    function resetTest() {
+      clearInterval(STATE.timerInterval);
+      
+      STATE.isStarted = false;
+      STATE.isFinished = false;
+      STATE.currentWordIndex = 0;
+      STATE.currentCharIndex = 0;
+      STATE.totalKeystrokes = 0;
+      STATE.correctKeystrokes = 0;
+      STATE.incorrectKeystrokes = 0;
+      STATE.streak = 0;
+      STATE.maxStreak = 0;
+      STATE.suddenDeathStrikes = 0;
+      STATE.elapsedSeconds = 0;
+      STATE.telemetry = [];
+      STATE.secondErrors = 0;
+
+      // Reset HUD
+      elements.hudWpm.textContent = '0';
+      elements.hudAcc.textContent = '100%';
+      elements.streakBadge.classList.add('hidden');
+      elements.streakCount.textContent = '0x Streak';
+      elements.caret.style.opacity = '1';
+      elements.caret.classList.add('blinking');
+      elements.passageTitleLabel.textContent = `Passage ${STATE.activePassageIndex + 1}/${PASSAGES.length}: ${PASSAGES[STATE.activePassageIndex].title}`;
+
+      if (STATE.mode === 'time') {
+        STATE.secondsRemaining = STATE.subOption;
+        elements.hudCounter.textContent = formatTimeDisplay(STATE.secondsRemaining);
+        elements.suddenDeathHearts.style.display = 'none';
+      } else if (STATE.mode === 'words') {
+        elements.hudCounter.textContent = STATE.subOption;
+        elements.suddenDeathHearts.style.display = 'none';
+      } else if (STATE.mode === 'sudden_death') {
+        elements.hudCounter.textContent = '0s';
+        elements.suddenDeathHearts.style.display = 'flex';
+        updateSuddenDeathHearts();
+      }
+
+      // Hide results screen and show controls
+      elements.resultsScreen.style.display = 'none';
+      elements.typingWrapper.style.display = 'flex';
+      elements.typingWrapper.style.transform = 'none';
+      document.getElementById('modeControls').style.opacity = '1';
+      document.getElementById('modeControls').style.pointerEvents = 'auto';
+
+      loadCurrentPassage();
+      focusInput();
+    }
+
+    function loadCurrentPassage() {
+      const p = PASSAGES[STATE.activePassageIndex];
+      let words = p.kruti.trim().split(/\s+/);
+
+      // In Word limit mode, repeat or slice to target count
+      if (STATE.mode === 'words') {
+        while (words.length < STATE.subOption) {
+          words = words.concat(p.kruti.trim().split(/\s+/));
+        }
+        words = words.slice(0, STATE.subOption);
+      } else {
+        // Repeat passage words to ensure user doesn't run out during 1 min, 5 min, or 10 min
+        const base = p.kruti.trim().split(/\s+/);
+        while (words.length < 1200) {
+          words = words.concat(base);
+        }
+      }
+
+      STATE.passageWords = words;
+      renderWords();
+    }
+
+      STATE.passageWords = words;
+      renderWords();
+    }
+
+    function renderWords() {
+      elements.wordsContainer.innerHTML = '';
+      STATE.passageWords.forEach((w, wIdx) => {
+        const wordEl = document.createElement('div');
+        wordEl.className = 'word';
+        wordEl.id = `word-${wIdx}`;
+
+        for (let i = 0; i < w.length; i++) {
+          const charEl = document.createElement('span');
+          charEl.className = 'char';
+          charEl.id = `char-${wIdx}-${i}`;
+          charEl.textContent = w[i];
+          wordEl.appendChild(charEl);
+        }
+
+        elements.wordsContainer.appendChild(wordEl);
+      });
+
+      // Align Caret to first character
+      setTimeout(updateCaretPosition, 20);
+    }
+
+    function nextPassage() {
+      STATE.activePassageIndex = (STATE.activePassageIndex + 1) % PASSAGES.length;
+      resetTest();
+    }
+
+    function prevPassage() {
+      STATE.activePassageIndex = (STATE.activePassageIndex - 1 + PASSAGES.length) % PASSAGES.length;
+      resetTest();
+    }
+
+    /* -------------------------------------------------------------
+       Caret & Viewport Auto-Scroll
+       ------------------------------------------------------------- */
+    function updateCaretPosition() {
+      const charEl = document.getElementById(`char-${STATE.currentWordIndex}-${STATE.currentCharIndex}`);
+      const wordEl = document.getElementById(`word-${STATE.currentWordIndex}`);
+      const wrapper = elements.typingWrapper;
+      const container = elements.wordsContainer;
+
+      if (!wordEl) return;
+
+      const wrapperRect = wrapper.getBoundingClientRect();
+      let targetLeft = 0;
+      let targetTop = 0;
+      let charHeight = 36;
+
+      if (charEl) {
+        const charRect = charEl.getBoundingClientRect();
+        targetLeft = charRect.left - wrapperRect.left;
+        targetTop = charRect.top - wrapperRect.top;
+        charHeight = charRect.height;
+      } else {
+        // At end of word (after last character)
+        const lastChar = wordEl.lastElementChild;
+        if (lastChar) {
+          const lastRect = lastChar.getBoundingClientRect();
+          targetLeft = lastRect.right - wrapperRect.left;
+          targetTop = lastRect.top - wrapperRect.top;
+          charHeight = lastRect.height;
+        } else {
+          const wordRect = wordEl.getBoundingClientRect();
+          targetLeft = wordRect.left - wrapperRect.left;
+          targetTop = wordRect.top - wrapperRect.top;
+          charHeight = wordRect.height;
+        }
+      }
+
+      elements.caret.style.left = `${targetLeft}px`;
+      elements.caret.style.top = `${targetTop}px`;
+      elements.caret.style.height = `${Math.max(28, charHeight)}px`;
+
+      // Smooth Line Scrolling (keep active word visible in middle line)
+      const wordTop = wordEl.offsetTop;
+      if (wordTop > 70) {
+        container.scrollTo({
+          top: wordTop - 35,
+          behavior: 'smooth'
+        });
+      } else {
+        container.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    /* -------------------------------------------------------------
+       Input Handling & Keystroke Validation
+       ------------------------------------------------------------- */
+    /* -------------------------------------------------------------
+       Input Handling & Keystroke Validation
+       ------------------------------------------------------------- */
+    function setupEventListeners() {
+      const input = elements.hiddenInput;
+
+      // Handle Keydown
+      window.addEventListener('keydown', (e) => {
+        // Global Shortcuts
+        if ((e.key === 'Tab' && e.shiftKey) || e.key === 'Escape') {
+          e.preventDefault();
+          if (elements.modalOpen) {
+            closeAltModal();
+            closeThemeModal();
+          } else {
+            resetTest();
+          }
+          return;
+        }
+
+        if (e.key === 'Tab') {
+          // Allow tab to reset when paired with Enter
+          window._tabPressed = true;
+          setTimeout(() => { window._tabPressed = false; }, 800);
+        }
+
+        if (e.key === 'Enter' && window._tabPressed) {
+          e.preventDefault();
+          resetTest();
+          return;
+        }
+
+        // Focus input if any standard key is pressed
+        if (!elements.modalOpen && document.activeElement !== input) {
+          if (!e.altKey && !e.ctrlKey && !e.metaKey) {
+            if (e.key.length === 1 || e.key === 'Backspace' || e.key === ' ') {
+              focusInput();
+            }
+          }
+        }
+      });
+
+      input.addEventListener('keydown', handleKeyDown);
+
+      // Handle input event for Alt codes (e.g. Alt+0161), IME composition, paste, etc.
+      input.addEventListener('input', (e) => {
+        const val = input.value;
+        input.value = '';
+        if (!val || STATE.isFinished) return;
+
+        if (!STATE.isStarted) {
+          startTimer();
+        }
+
+        elements.caret.classList.remove('blinking');
+
+        for (let i = 0; i < val.length; i++) {
+          processCharacter(val[i]);
+        }
+      });
+
+      elements.typingWrapper.addEventListener('click', focusInput);
+      input.addEventListener('focus', () => elements.focusOverlay.classList.add('hidden'));
+      input.addEventListener('blur', () => {
+        if (!STATE.isFinished && !elements.modalOpen) {
+          elements.focusOverlay.classList.remove('hidden');
+        }
+      });
+    }
+
+    function focusInput() {
+      elements.hiddenInput.focus();
+      elements.focusOverlay.classList.add('hidden');
+    }
+
+    function handleKeyDown(e) {
+      if (STATE.isFinished) return;
+
+      // Allow OS/browser to accumulate Alt-codes (e.g., Alt+0161) without intercepting Numpad digits
+      if (e.altKey) return;
+      if (e.ctrlKey || e.metaKey) return;
+
+      const key = e.key;
+
+      // Ignore modifiers
+      if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(key)) {
+        return;
+      }
+
+      // Start timer on first genuine keystroke
+      if (!STATE.isStarted) {
+        startTimer();
+      }
+
+      elements.caret.classList.remove('blinking');
+
+      // 1. BACKSPACE HANDLING
+      if (key === 'Backspace') {
+        e.preventDefault();
+        handleBackspace(e.ctrlKey);
+        return;
+      }
+
+      // 2. SPACEBAR HANDLING (Word Transition)
+      if (key === ' ') {
+        e.preventDefault();
+        audio.playSpaceClack();
+        handleSpacebar();
+        return;
+      }
+
+      // 3. REGULAR KEYSTROKE (ASCII / REMINGTON TYPING)
+      if (key.length === 1) {
+        e.preventDefault();
+        processCharacter(key);
+      }
+    }
+
+    function processCharacter(key) {
+      if (STATE.isFinished) return;
+
+      const currentWordStr = STATE.passageWords[STATE.currentWordIndex];
+      const wordEl = document.getElementById(`word-${STATE.currentWordIndex}`);
+      if (!wordEl || !currentWordStr) return;
+
+      STATE.totalKeystrokes++;
+      const targetChar = currentWordStr[STATE.currentCharIndex];
+
+      if (STATE.currentCharIndex < currentWordStr.length) {
+        const charEl = document.getElementById(`char-${STATE.currentWordIndex}-${STATE.currentCharIndex}`);
+
+        if (key === targetChar) {
+          // Correct Character!
+          if (charEl) {
+            charEl.classList.add('correct');
+            charEl.classList.remove('incorrect');
+          }
+          STATE.correctKeystrokes++;
+          audio.playKeyClick();
+          incrementStreak();
+        } else {
+          // Incorrect Character!
+          if (charEl) {
+            charEl.classList.add('incorrect');
+            charEl.classList.remove('correct');
+          }
+          STATE.incorrectKeystrokes++;
+          STATE.secondErrors++;
+          audio.playErrorBuzz();
+          handleTypingError();
+        }
+        STATE.currentCharIndex++;
+      } else {
+        // Extra Character Typed beyond word length
+        STATE.incorrectKeystrokes++;
+        STATE.secondErrors++;
+        audio.playErrorBuzz();
+        handleTypingError();
+
+        const extraChar = document.createElement('span');
+        extraChar.className = 'char extra';
+        extraChar.textContent = key;
+        wordEl.appendChild(extraChar);
+        STATE.currentCharIndex++;
+      }
+
+      updateLiveHUD();
+      updateCaretPosition();
+    }
+
+    function handleBackspace(ctrlPressed) {
+      const wordEl = document.getElementById(`word-${STATE.currentWordIndex}`);
+      if (!wordEl) return;
+
+      if (STATE.currentCharIndex > 0) {
+        const currentWordStr = STATE.passageWords[STATE.currentWordIndex];
+
+        if (STATE.currentCharIndex > currentWordStr.length) {
+          // Remove extra character
+          wordEl.lastElementChild.remove();
+          STATE.currentCharIndex--;
+        } else {
+          STATE.currentCharIndex--;
+          const charEl = document.getElementById(`char-${STATE.currentWordIndex}-${STATE.currentCharIndex}`);
+          charEl.classList.remove('correct', 'incorrect');
+        }
+
+        audio.playKeyClick();
+        updateCaretPosition();
+        updateLiveHUD();
+      } else if (STATE.currentWordIndex > 0) {
+        // Jump back to previous word if it had errors
+        const prevWordEl = document.getElementById(`word-${STATE.currentWordIndex - 1}`);
+        if (prevWordEl && prevWordEl.classList.contains('has-error')) {
+          STATE.currentWordIndex--;
+          STATE.currentCharIndex = prevWordEl.querySelectorAll('.char').length;
+          updateCaretPosition();
+          updateLiveHUD();
+        }
+      }
+    }
+
+    function handleSpacebar() {
+      const currentWordStr = STATE.passageWords[STATE.currentWordIndex];
+      const wordEl = document.getElementById(`word-${STATE.currentWordIndex}`);
+
+      // If word was not fully typed, mark remaining characters as missed/incorrect
+      let wordHasError = false;
+      for (let i = 0; i < currentWordStr.length; i++) {
+        const charEl = document.getElementById(`char-${STATE.currentWordIndex}-${i}`);
+        if (!charEl.classList.contains('correct')) {
+          charEl.classList.add('incorrect');
+          wordHasError = true;
+          STATE.incorrectKeystrokes++;
+        }
+      }
+
+      if (wordEl.querySelectorAll('.extra').length > 0) {
+        wordHasError = true;
+      }
+
+      if (wordHasError) {
+        wordEl.classList.add('has-error');
+      }
+
+      STATE.currentWordIndex++;
+      STATE.currentCharIndex = 0;
+
+      // Word limit check
+      if (STATE.mode === 'words') {
+        const wordsLeft = Math.max(0, STATE.subOption - STATE.currentWordIndex);
+        elements.hudCounter.textContent = wordsLeft;
+        if (wordsLeft === 0) {
+          finishTest();
+          return;
+        }
+      }
+
+      updateCaretPosition();
+      updateLiveHUD();
+    }
+
+    function handleTypingError() {
+      resetStreak();
+
+      // Screen Shake and Error Pulse Feedback
+      elements.typingWrapper.classList.remove('shake-effect', 'error-pulse');
+      void elements.typingWrapper.offsetWidth; // trigger reflow
+      elements.typingWrapper.classList.add('shake-effect', 'error-pulse');
+      setTimeout(() => elements.typingWrapper.classList.remove('error-pulse'), 300);
+
+      // Sudden Death Mode check
+      if (STATE.mode === 'sudden_death') {
+        STATE.suddenDeathStrikes++;
+        updateSuddenDeathHearts();
+        if (STATE.suddenDeathStrikes >= 3) {
+          finishTest();
+        }
+      }
+    }
+
+    function updateSuddenDeathHearts() {
+      const hearts = [document.getElementById('heart1'), document.getElementById('heart2'), document.getElementById('heart3')];
+      hearts.forEach((h, idx) => {
+        if (idx < (3 - STATE.suddenDeathStrikes)) {
+          h.textContent = '❤️';
+          h.style.opacity = '1';
+        } else {
+          h.textContent = '🖤';
+          h.style.opacity = '0.35';
+        }
+      });
+    }
+
+    /* -------------------------------------------------------------
+       Streak & Combo Multiplier
+       ------------------------------------------------------------- */
+    function incrementStreak() {
+      STATE.streak++;
+      if (STATE.streak > STATE.maxStreak) {
+        STATE.maxStreak = STATE.streak;
+      }
+
+      if (STATE.streak >= 5) {
+        elements.streakBadge.classList.remove('hidden');
+        elements.streakCount.textContent = `${STATE.streak}x Streak`;
+
+        // Milestone particle bursts and fanfare
+        if (STATE.streak === 10 || STATE.streak === 25 || STATE.streak === 50 || STATE.streak === 100) {
+          audio.playStreakFanfare();
+          const rect = elements.streakBadge.getBoundingClientRect();
+          particles.burst(rect.left + rect.width / 2, rect.top + rect.height / 2, 45);
+        }
+      }
+    }
+
+    function resetStreak() {
+      STATE.streak = 0;
+      elements.streakBadge.classList.add('hidden');
+    }
+
+    /* -------------------------------------------------------------
+       Timer & Metrics Calculations
+       ------------------------------------------------------------- */
+    function startTimer() {
+      STATE.isStarted = true;
+      STATE.startTime = Date.now();
+      document.getElementById('modeControls').style.opacity = '0.35';
+      document.getElementById('modeControls').style.pointerEvents = 'none';
+
+      STATE.timerInterval = setInterval(() => {
+        STATE.elapsedSeconds++;
+
+        // Sample telemetry point for SVG chart
+        const curWpm = calculateLiveWpm();
+        STATE.telemetry.push({
+          second: STATE.elapsedSeconds,
+          wpm: curWpm,
+          errors: STATE.secondErrors
+        });
+        STATE.secondErrors = 0; // reset for next second bucket
+
+        if (STATE.mode === 'time') {
+          STATE.secondsRemaining--;
+          elements.hudCounter.textContent = formatTimeDisplay(STATE.secondsRemaining);
+          if (STATE.secondsRemaining <= 0) {
+            finishTest();
+          }
+        } else if (STATE.mode === 'sudden_death') {
+          elements.hudCounter.textContent = `${STATE.elapsedSeconds}s`;
+        }
+
+        updateLiveHUD();
+      }, 1000);
+    }
+
+    function calculateLiveWpm() {
+      const minutes = Math.max(0.05, STATE.elapsedSeconds / 60);
+      const grossWpm = Math.round((STATE.correctKeystrokes / 5) / minutes);
+      return isNaN(grossWpm) || grossWpm < 0 ? 0 : grossWpm;
+    }
+
+    function updateLiveHUD() {
+      const liveWpm = calculateLiveWpm();
+      elements.hudWpm.textContent = liveWpm;
+
+      const accuracy = STATE.totalKeystrokes > 0
+        ? Math.round((STATE.correctKeystrokes / STATE.totalKeystrokes) * 100)
+        : 100;
+      elements.hudAcc.textContent = `${accuracy}%`;
+
+      if (accuracy < 85) {
+        elements.hudAcc.className = 'hud-value red';
+      } else if (accuracy < 95) {
+        elements.hudAcc.className = 'hud-value yellow';
+      } else {
+        elements.hudAcc.className = 'hud-value';
+      }
+    }
+
+    /* -------------------------------------------------------------
+       End Game Screen & Interactive SVG Analytics Chart
+       ------------------------------------------------------------- */
+    function finishTest() {
+      clearInterval(STATE.timerInterval);
+      STATE.isFinished = true;
+      elements.caret.style.opacity = '0';
+
+      const durationMinutes = Math.max(0.08, STATE.elapsedSeconds / 60);
+      const grossWpm = Math.round((STATE.totalKeystrokes / 5) / durationMinutes);
+      const netWpm = Math.max(0, Math.round(((STATE.correctKeystrokes / 5) - STATE.incorrectKeystrokes) / durationMinutes));
+      const accuracy = STATE.totalKeystrokes > 0
+        ? Math.round((STATE.correctKeystrokes / STATE.totalKeystrokes) * 100)
+        : 100;
+
+      // Populate Result Summary Cards
+      document.getElementById('resNetWpm').textContent = netWpm;
+      document.getElementById('resAccuracy').textContent = `${accuracy}%`;
+      document.getElementById('resGrossWpm').textContent = grossWpm;
+      document.getElementById('resMaxStreak').textContent = `${STATE.maxStreak}x`;
+      document.getElementById('resKeystrokes').textContent = `${STATE.correctKeystrokes}/${STATE.incorrectKeystrokes}`;
+      document.getElementById('resTime').textContent = `${STATE.elapsedSeconds}s`;
+
+      // Hide typing container and show results
+      elements.typingWrapper.style.display = 'none';
+      elements.resultsScreen.style.display = 'block';
+
+      // Render Interactive SVG Chart
+      renderSvgChart();
+    }
+
+    function renderSvgChart() {
+      const svg = elements.chartSvg;
+      svg.innerHTML = '';
+      const tooltip = elements.chartTooltip;
+
+      const accent = getComputedStyle(document.documentElement).getPropertyValue('--neon-cyan').trim() || '#00E5FF';
+      const errorColor = getComputedStyle(document.documentElement).getPropertyValue('--crimson-red').trim() || '#FF3366';
+
+      const data = STATE.telemetry;
+      if (data.length === 0) {
+        data.push({ second: 1, wpm: 0, errors: 0 });
+      }
+
+      const W = 600;
+      const H = 200;
+      const padLeft = 45;
+      const padRight = 20;
+      const padTop = 20;
+      const padBottom = 30;
+
+      const chartW = W - padLeft - padRight;
+      const chartH = H - padTop - padBottom;
+
+      const maxWpm = Math.max(60, Math.ceil((Math.max(...data.map(d => d.wpm)) + 10) / 10) * 10);
+      const maxSec = Math.max(1, data[data.length - 1].second);
+
+      const getX = (sec) => padLeft + (sec / maxSec) * chartW;
+      const getY = (wpm) => padTop + chartH - (wpm / maxWpm) * chartH;
+
+      // Draw Y-Axis Grid Lines & Labels
+      const yTicks = 4;
+      for (let i = 0; i <= yTicks; i++) {
+        const val = Math.round((maxWpm / yTicks) * i);
+        const y = getY(val);
+
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', padLeft);
+        line.setAttribute('y1', y);
+        line.setAttribute('x2', W - padRight);
+        line.setAttribute('y2', y);
+        line.setAttribute('stroke', 'var(--border-subtle)');
+        line.setAttribute('stroke-dasharray', '3 3');
+        svg.appendChild(line);
+
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', padLeft - 8);
+        text.setAttribute('y', y + 4);
+        text.setAttribute('fill', 'var(--text-muted)');
+        text.setAttribute('font-size', '10');
+        text.setAttribute('font-family', 'var(--font-mono)');
+        text.setAttribute('text-anchor', 'end');
+        text.textContent = val;
+        svg.appendChild(text);
+      }
+
+      // Draw SVG Line Path
+      let pathD = `M ${getX(data[0].second)} ${getY(data[0].wpm)}`;
+      let areaD = `M ${getX(data[0].second)} ${getY(0)} L ${getX(data[0].second)} ${getY(data[0].wpm)}`;
+
+      for (let i = 1; i < data.length; i++) {
+        const x = getX(data[i].second);
+        const y = getY(data[i].wpm);
+        pathD += ` L ${x} ${y}`;
+        areaD += ` L ${x} ${y}`;
+      }
+
+      areaD += ` L ${getX(data[data.length - 1].second)} ${getY(0)} Z`;
+
+      // Area Fill Gradient
+      const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+      defs.innerHTML = `
+        <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${accent}" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="${accent}" stop-opacity="0.0"/>
+        </linearGradient>
+      `;
+      svg.appendChild(defs);
+
+      const areaPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      areaPath.setAttribute('d', areaD);
+      areaPath.setAttribute('fill', 'url(#chartGrad)');
+      svg.appendChild(areaPath);
+
+      const linePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      linePath.setAttribute('d', pathD);
+      linePath.setAttribute('fill', 'none');
+      linePath.setAttribute('stroke', accent);
+      linePath.setAttribute('stroke-width', '2.5');
+      linePath.setAttribute('stroke-linecap', 'round');
+      linePath.setAttribute('stroke-linejoin', 'round');
+      svg.appendChild(linePath);
+
+      // Data Points & Interactive Tooltips
+      data.forEach((d) => {
+        const cx = getX(d.second);
+        const cy = getY(d.wpm);
+
+        // Error markers
+        if (d.errors > 0) {
+          const errCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          errCircle.setAttribute('cx', cx);
+          errCircle.setAttribute('cy', cy);
+          errCircle.setAttribute('r', '5');
+          errCircle.setAttribute('fill', errorColor);
+          errCircle.setAttribute('stroke', '#000');
+          errCircle.setAttribute('stroke-width', '1.5');
+          svg.appendChild(errCircle);
+        }
+
+        const point = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        point.setAttribute('cx', cx);
+        point.setAttribute('cy', cy);
+        point.setAttribute('r', '3');
+        point.setAttribute('fill', accent);
+        point.style.cursor = 'pointer';
+
+        point.addEventListener('mouseenter', (e) => {
+          point.setAttribute('r', '6');
+          tooltip.style.opacity = '1';
+          tooltip.innerHTML = `<strong>${d.second}s</strong>: ${d.wpm} WPM ${d.errors > 0 ? `<span style="color:${errorColor}">(${d.errors} err)</span>` : ''}`;
+          
+          const svgRect = svg.getBoundingClientRect();
+          const tooltipX = (cx / W) * svgRect.width;
+          const tooltipY = (cy / H) * svgRect.height;
+          tooltip.style.left = `${tooltipX}px`;
+          tooltip.style.top = `${tooltipY}px`;
+        });
+
+        point.addEventListener('mouseleave', () => {
+          point.setAttribute('r', '3');
+          tooltip.style.opacity = '0';
+        });
+
+        svg.appendChild(point);
+      });
+    }
+
+    /* -------------------------------------------------------------
+       5. ALT-CODES & KEYBOARD MODAL
+       ------------------------------------------------------------- */
+    function populateAltModalTable() {
+      const tbody = document.getElementById('altTableBody');
+      tbody.innerHTML = '';
+
+      ALT_CODES_DATA.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><span class="alt-badge">Alt + ${item.code}</span></td>
+          <td><span class="glyph-display">${item.glyph}</span></td>
+          <td><span class="devanagari-meaning">${item.hindi}</span> <span style="font-size:0.75rem; color:var(--text-muted); margin-left:0.4rem;">${item.desc}</span></td>
+          <td><code style="color:var(--text-dim);">${item.glyph}</code></td>
+          <td>
+            <button class="copy-btn" onclick="copyAltCode('Alt + ${item.code}', this)">Copy</button>
+            <button class="insert-btn" onclick="insertAltChar('${item.glyph}')">Type</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function populateRemingtonGrid() {
+      const grid = document.getElementById('remingtonGrid');
+      grid.innerHTML = '';
+
+      REMINGTON_KEYS.forEach(k => {
+        const card = document.createElement('div');
+        card.className = 'remington-key-card';
+        card.innerHTML = `
+          <div class="remington-key-header">
+            <span>Key: <kbd class="remington-key-kbd">${k.key}</kbd></span>
+            <span>Shift: <kbd class="remington-key-kbd">${k.shift}</kbd></span>
+          </div>
+          <div class="remington-key-body">
+            <div>
+              <div class="remington-glyph">${k.glyph}</div>
+              <div class="remington-hindi">${k.hindi}</div>
+            </div>
+            <div style="text-align: right;">
+              <div class="remington-glyph" style="color: var(--neon-green);">${k.shiftGlyph}</div>
+              <div class="remington-hindi">${k.shiftHindi}</div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function switchModalTab(tab) {
+      document.getElementById('tabBtnCodes').classList.toggle('active', tab === 'codes');
+      document.getElementById('tabBtnLayout').classList.toggle('active', tab === 'layout');
+      document.getElementById('tabContentCodes').style.display = tab === 'codes' ? 'block' : 'none';
+      document.getElementById('tabContentLayout').style.display = tab === 'layout' ? 'block' : 'none';
+      filterModalContent();
+    }
+
+    function filterModalContent() {
+      const q = document.getElementById('altSearchInput').value.toLowerCase();
+      
+      // Filter Table
+      const rows = document.querySelectorAll('#altTableBody tr');
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(q) ? '' : 'none';
+      });
+
+      // Filter Cards
+      const cards = document.querySelectorAll('.remington-key-card');
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ? '' : 'none';
+      });
+    }
+
+    function copyAltCode(codeStr, btn) {
+      navigator.clipboard.writeText(codeStr).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.style.borderColor = 'var(--neon-green)';
+        btn.style.color = 'var(--neon-green)';
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.style.borderColor = '';
+          btn.style.color = '';
+        }, 1200);
+      });
+    }
+
+    function insertAltChar(char) {
+      closeAltModal();
+      setTimeout(() => {
+        if (!STATE.isStarted) startTimer();
+        processCharacter(char);
+      }, 120);
+    }
+
+    function openAltModal(tab = 'codes') {
+      elements.modalOpen = true;
+      switchModalTab(tab);
+      document.getElementById('altModal').classList.add('open');
+      document.getElementById('altSearchInput').focus();
+    }
+
+    function closeAltModal() {
+      elements.modalOpen = false;
+      document.getElementById('altModal').classList.remove('open');
+      focusInput();
+    }
+
+    function handleModalBackdropClick(e) {
+      if (e.target.id === 'altModal') {
+        closeAltModal();
+      }
+    }
+
+    /* ==========================================================================
+       6. THEME & COLOR STUDIO ENGINE
+       ========================================================================== */
+    function initThemeSystem() {
+      populatePresetThemesGrid();
+
+      // Check stored theme in localStorage
+      const savedThemeId = localStorage.getItem('krutidev_active_theme_id') || 'amoled';
+      const customThemeData = localStorage.getItem('krutidev_custom_theme_data');
+
+      if (savedThemeId === 'custom' && customThemeData) {
+        try {
+          const theme = JSON.parse(customThemeData);
+          applyTheme(theme, true);
+        } catch (e) {
+          applyPresetTheme('amoled');
+        }
+      } else {
+        applyPresetTheme(savedThemeId);
+      }
+    }
+
+    function populatePresetThemesGrid() {
+      const grid = document.getElementById('presetThemesGrid');
+      grid.innerHTML = '';
+
+      THEME_PRESETS.forEach(theme => {
+        const card = document.createElement('div');
+        card.className = 'theme-card';
+        card.id = `theme-card-${theme.id}`;
+        card.onclick = () => applyPresetTheme(theme.id);
+
+        card.innerHTML = `
+          <div class="theme-card-header">
+            <span class="theme-card-title">${theme.name}</span>
+            <span class="theme-badge-active">ACTIVE ✓</span>
+          </div>
+          <div class="theme-palette-preview">
+            <div class="theme-palette-color" style="background: ${theme.bg};" title="Background: ${theme.bg}"></div>
+            <div class="theme-palette-color" style="background: ${theme.surface2};" title="Surface: ${theme.surface2}"></div>
+            <div class="theme-palette-color" style="background: ${theme.accent};" title="Accent: ${theme.accent}"></div>
+            <div class="theme-palette-color" style="background: ${theme.correct};" title="Correct: ${theme.correct}"></div>
+            <div class="theme-palette-color" style="background: ${theme.error};" title="Error: ${theme.error}"></div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function hexToRgba(hex, alpha = 1) {
+      let c = hex.replace('#', '');
+      if (c.length === 3) c = c.split('').map(x => x + x).join('');
+      const num = parseInt(c, 16);
+      const r = (num >> 16) & 255;
+      const g = (num >> 8) & 255;
+      const b = num & 255;
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
+    function adjustBrightness(hex, percent) {
+      let c = hex.replace('#', '');
+      if (c.length === 3) c = c.split('').map(x => x + x).join('');
+      let num = parseInt(c, 16);
+      let r = Math.min(255, Math.max(0, ((num >> 16) & 255) + Math.round(255 * (percent / 100))));
+      let g = Math.min(255, Math.max(0, ((num >> 8) & 255) + Math.round(255 * (percent / 100))));
+      let b = Math.min(255, Math.max(0, (num & 255) + Math.round(255 * (percent / 100))));
+      return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+    }
+
+    function applyTheme(theme, isCustom = false) {
+      const root = document.documentElement;
+
+      root.style.setProperty('--bg-black', theme.bg);
+      root.style.setProperty('--surface-1', theme.surface1);
+      root.style.setProperty('--surface-2', theme.surface2);
+      root.style.setProperty('--surface-3', theme.surface3 || adjustBrightness(theme.surface2, 10));
+      root.style.setProperty('--border-subtle', theme.borderSubtle || adjustBrightness(theme.surface1, 15));
+      root.style.setProperty('--border-bright', theme.borderBright || adjustBrightness(theme.surface1, 30));
+
+      root.style.setProperty('--neon-cyan', theme.accent);
+      root.style.setProperty('--neon-cyan-glow', hexToRgba(theme.accent, 0.4));
+
+      root.style.setProperty('--neon-green', theme.correct);
+      root.style.setProperty('--neon-green-glow', hexToRgba(theme.correct, 0.45));
+
+      root.style.setProperty('--crimson-red', theme.error);
+      root.style.setProperty('--crimson-red-glow', hexToRgba(theme.error, 0.45));
+
+      if (theme.textMuted) root.style.setProperty('--text-muted', theme.textMuted);
+      if (theme.textDim) root.style.setProperty('--text-dim', theme.textDim);
+      if (theme.textBright) root.style.setProperty('--text-bright', theme.textBright);
+
+      // Update Theme Button Text
+      const themeBtnText = document.getElementById('themeBtnText');
+      if (themeBtnText) {
+        themeBtnText.textContent = theme.name || (isCustom ? 'Custom' : 'Theme');
+      }
+
+      // Update active cards highlight
+      document.querySelectorAll('.theme-card').forEach(card => {
+        card.classList.toggle('active', !isCustom && card.id === `theme-card-${theme.id}`);
+      });
+
+      // Synchronize Custom Pickers with current colors
+      syncPickersWithTheme(theme);
+
+      // Save to localStorage
+      localStorage.setItem('krutidev_active_theme_id', isCustom ? 'custom' : theme.id);
+      if (isCustom) {
+        localStorage.setItem('krutidev_custom_theme_data', JSON.stringify(theme));
+      }
+
+      // Re-render chart if visible
+      if (STATE.isFinished) {
+        renderSvgChart();
+      }
+    }
+
+    function applyPresetTheme(themeId) {
+      const theme = THEME_PRESETS.find(t => t.id === themeId) || THEME_PRESETS[0];
+      applyTheme(theme, false);
+    }
+
+    function syncPickersWithTheme(theme) {
+      const setVal = (pickerId, hexId, color) => {
+        const p = document.getElementById(pickerId);
+        const h = document.getElementById(hexId);
+        if (p && color) p.value = color.substring(0, 7);
+        if (h && color) h.value = color.substring(0, 7).toUpperCase();
+      };
+
+      setVal('pickerBg', 'hexBg', theme.bg);
+      setVal('pickerSurface', 'hexSurface', theme.surface1);
+      setVal('pickerAccent', 'hexAccent', theme.accent);
+      setVal('pickerCorrect', 'hexCorrect', theme.correct);
+      setVal('pickerError', 'hexError', theme.error);
+      setVal('pickerMuted', 'hexMuted', theme.textMuted || '#575e6e');
+    }
+
+    function onCustomColorInput() {
+      const bg = document.getElementById('pickerBg').value;
+      const surface1 = document.getElementById('pickerSurface').value;
+      const accent = document.getElementById('pickerAccent').value;
+      const correct = document.getElementById('pickerCorrect').value;
+      const error = document.getElementById('pickerError').value;
+      const muted = document.getElementById('pickerMuted').value;
+
+      document.getElementById('hexBg').value = bg.toUpperCase();
+      document.getElementById('hexSurface').value = surface1.toUpperCase();
+      document.getElementById('hexAccent').value = accent.toUpperCase();
+      document.getElementById('hexCorrect').value = correct.toUpperCase();
+      document.getElementById('hexError').value = error.toUpperCase();
+      document.getElementById('hexMuted').value = muted.toUpperCase();
+
+      const customTheme = {
+        id: 'custom',
+        name: 'Custom Theme',
+        bg,
+        surface1,
+        surface2: adjustBrightness(surface1, 8),
+        surface3: adjustBrightness(surface1, 15),
+        borderSubtle: adjustBrightness(surface1, 18),
+        borderBright: adjustBrightness(surface1, 32),
+        accent,
+        correct,
+        error,
+        textMuted: muted,
+        textDim: adjustBrightness(muted, 30),
+        textBright: '#ffffff'
+      };
+
+      applyTheme(customTheme, true);
+    }
+
+    function onCustomHexInput(pickerId, hexValue) {
+      if (/^#[0-9A-Fa-f]{6}$/.test(hexValue)) {
+        document.getElementById(pickerId).value = hexValue;
+        onCustomColorInput();
+      }
+    }
+
+    function saveCustomTheme() {
+      onCustomColorInput();
+      closeThemeModal();
+    }
+
+    function resetDefaultTheme() {
+      applyPresetTheme('amoled');
+      closeThemeModal();
+    }
+
+    function switchThemeTab(tab) {
+      document.getElementById('tabBtnThemePresets').classList.toggle('active', tab === 'presets');
+      document.getElementById('tabBtnThemeCustom').classList.toggle('active', tab === 'custom');
+      document.getElementById('tabContentThemePresets').style.display = tab === 'presets' ? 'block' : 'none';
+      document.getElementById('tabContentThemeCustom').style.display = tab === 'custom' ? 'block' : 'none';
+    }
+
+    function openThemeModal() {
+      elements.modalOpen = true;
+      document.getElementById('themeModal').classList.add('open');
+    }
+
+    function closeThemeModal() {
+      elements.modalOpen = false;
+      document.getElementById('themeModal').classList.remove('open');
+      focusInput();
+    }
+
+    function handleThemeModalBackdropClick(e) {
+      if (e.target.id === 'themeModal') {
+        closeThemeModal();
+      }
+    }
+
+    // Launch Game on Window Load
+    window.addEventListener('DOMContentLoaded', initGame);
+  </script>
+</body>
+</html>
