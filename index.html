@@ -2355,10 +2355,6 @@
       renderWords();
     }
 
-      STATE.passageWords = words;
-      renderWords();
-    }
-
     function renderWords() {
       elements.wordsContainer.innerHTML = '';
       STATE.passageWords.forEach((w, wIdx) => {
@@ -2447,9 +2443,6 @@
       }
     }
 
-    /* -------------------------------------------------------------
-       Input Handling & Keystroke Validation
-       ------------------------------------------------------------- */
     /* -------------------------------------------------------------
        Input Handling & Keystroke Validation
        ------------------------------------------------------------- */
