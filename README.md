@@ -62,7 +62,7 @@ The typing engine calculates real-time metrics using official examination formul
 
 $$\text{Gross WPM} = \frac{\text{Total Keystrokes} / 5}{\text{Time in Minutes}}$$
 
-$$\text{Net WPM} = \max\left(0, \frac{(\text{Total Correct Keystrokes} / 5) - \text{Uncorrected Errors}}{\text{Time in Minutes}}\right)$$
+$$\text{Net WPM} = \max\left(0, \frac{(\text{Correct Keystrokes} - \text{Incorrect Keystrokes}) / 5}{\text{Time in Minutes}}\right)$$
 
 $$\text{Accuracy (\%)} = \left( \frac{\text{Correct Keystrokes}}{\text{Total Keystrokes}} \right) \times 100$$
 
