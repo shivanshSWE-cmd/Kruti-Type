@@ -1716,6 +1716,7 @@
       { code: "0204", glyph: "Ì", hindi: "ष्ट", engKey: "Alt + 0204", desc: "संयुक्त अक्षर (ष्ट)" },
       { code: "0205", glyph: "Í", hindi: "फ्र", engKey: "Alt + 0205", desc: "र-पदेन अक्षर (फ्र)" },
       { code: "0206", glyph: "Î", hindi: "द्र", engKey: "Alt + 0206", desc: "र-पदेन अक्षर (द्र)" },
+      { code: "0209", glyph: "Ñ", hindi: "कृ", engKey: "Alt + 0209", desc: "संयुक्त अक्षर (कृ)" },
       { code: "0216", glyph: "Ø", hindi: "क्र", engKey: "Alt + 0216", desc: "र-पदेन अक्षर (क्र)" },
       { code: "0221", glyph: "Ý", hindi: "ङ्क", engKey: "Alt + 0221", desc: "संयुक्त अक्षर (ङ्क)" },
       { code: "0226", glyph: "â", hindi: "द्य", engKey: "Alt + 0226", desc: "संयुक्त अक्षर (द्य)" },
@@ -1726,6 +1727,7 @@
 
     // Remington Basic Key Reference
     const REMINGTON_KEYS = [
+      { key: "`", shift: "~", glyph: "`", shiftGlyph: "~", hindi: "ृ (ऋ)", shiftHindi: "फ" },
       { key: "d", shift: "D", glyph: "d", shiftGlyph: "D", hindi: "क", shiftHindi: "क्" },
       { key: "k", shift: "K", glyph: "k", shiftGlyph: "K", hindi: "ा (आ)", shiftHindi: "ज्ञ" },
       { key: "j", shift: "J", glyph: "j", shiftGlyph: "J", hindi: "र", shiftHindi: "श्र" },
@@ -1752,10 +1754,6 @@
       { key: "b", shift: "B", glyph: "b", shiftGlyph: "B", hindi: "इ", shiftHindi: "ठ" },
       { key: "n", shift: "N", glyph: "n", shiftGlyph: "N", hindi: "द", shiftHindi: "छ" },
       { key: "m", shift: "M", glyph: "m", shiftGlyph: "M", hindi: "उ", shiftHindi: "ड" },
-      { key: "z", shift: "Z", glyph: "z", shiftGlyph: "Z", hindi: "्र (र-पदैन)", shiftHindi: "्र (र-पदैन)" },
-      { key: "`", shift: "~", glyph: "`", shiftGlyph: "~", hindi: "‘ / ़ (नुक्ता)", shiftHindi: "्र (र-पदैन)" },
-      { key: "=", shift: "+", glyph: "=", shiftGlyph: "+", hindi: "ृ (ऋ की मात्रा)", shiftHindi: "ङ" },
-      { key: "\\", shift: "|", glyph: "\\", shiftGlyph: "|", hindi: "? (प्रश्नचिह्न)", shiftHindi: "इ" },
       { key: "[", shift: "{", glyph: "[", shiftGlyph: "{", hindi: "ख", shiftHindi: "क्ष" },
       { key: "]", shift: "}", glyph: "]", shiftGlyph: "}", hindi: ", (अल्पविराम)", shiftHindi: "द्व" }
     ];
@@ -2339,17 +2337,19 @@
 
     function loadCurrentPassage() {
       const p = PASSAGES[STATE.activePassageIndex];
-      let words = p.kruti.trim().split(/\s+/);
+      // Normalize pre-combined कृ (Ñ) into Remington keystroke sequence d` (क + ृ)
+      const normalizedText = p.kruti.replace(/Ñ/g, "d`").trim();
+      let words = normalizedText.split(/\s+/);
 
       // In Word limit mode, repeat or slice to target count
       if (STATE.mode === 'words') {
         while (words.length < STATE.subOption) {
-          words = words.concat(p.kruti.trim().split(/\s+/));
+          words = words.concat(normalizedText.split(/\s+/));
         }
         words = words.slice(0, STATE.subOption);
       } else {
         // Repeat passage words to ensure user doesn't run out during 1 min, 5 min, or 10 min
-        const base = p.kruti.trim().split(/\s+/);
+        const base = normalizedText.split(/\s+/);
         while (words.length < 1200) {
           words = words.concat(base);
         }
@@ -2522,26 +2522,20 @@
       elements.focusOverlay.classList.add('hidden');
     }
 
-    function isEquivalentGlyph(k1, k2) {
-      if (k1 === k2) return true;
-      // Remington equivalence: 'z' and '~' both produce ्र (r-paden) used in क्र (dz / d~), प्र (iz / i~), etc.
-      if ((k1 === 'z' && k2 === '~') || (k1 === '~' && k2 === 'z')) return true;
-      if ((k1 === 'Z' && k2 === '~') || (k1 === '~' && k2 === 'Z')) return true;
-      if ((k1 === '`' && k2 === '\'') || (k1 === '\'' && k2 === '`')) return true;
-      return false;
-    }
-
     function handleKeyDown(e) {
       if (STATE.isFinished) return;
 
       // Allow OS/browser to accumulate Alt-codes (e.g., Alt+0161) without intercepting Numpad digits
       if (e.altKey) return;
-      if (e.ctrlKey || e.metaKey) return;
+      let key = e.key;
 
-      const key = e.key;
+      // Handle backtick dead key on US-International / Windows IME layouts
+      if (key === 'Dead' && e.code === 'Backquote') {
+        key = '`';
+      }
 
-      // Ignore modifiers and Dead keys (allow browser to process dead keys via input event)
-      if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Dead'].includes(key)) {
+      // Ignore modifiers
+      if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(key)) {
         return;
       }
 
@@ -2587,7 +2581,7 @@
       if (STATE.currentCharIndex < currentWordStr.length) {
         const charEl = document.getElementById(`char-${STATE.currentWordIndex}-${STATE.currentCharIndex}`);
 
-        if (isEquivalentGlyph(key, targetChar)) {
+        if (key === targetChar) {
           // Correct Character!
           if (charEl) {
             charEl.classList.add('correct');
