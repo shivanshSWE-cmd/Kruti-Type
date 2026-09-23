@@ -1752,6 +1752,10 @@
       { key: "b", shift: "B", glyph: "b", shiftGlyph: "B", hindi: "इ", shiftHindi: "ठ" },
       { key: "n", shift: "N", glyph: "n", shiftGlyph: "N", hindi: "द", shiftHindi: "छ" },
       { key: "m", shift: "M", glyph: "m", shiftGlyph: "M", hindi: "उ", shiftHindi: "ड" },
+      { key: "z", shift: "Z", glyph: "z", shiftGlyph: "Z", hindi: "्र (र-पदैन)", shiftHindi: "्र (र-पदैन)" },
+      { key: "`", shift: "~", glyph: "`", shiftGlyph: "~", hindi: "‘ / ़ (नुक्ता)", shiftHindi: "्र (र-पदैन)" },
+      { key: "=", shift: "+", glyph: "=", shiftGlyph: "+", hindi: "ृ (ऋ की मात्रा)", shiftHindi: "ङ" },
+      { key: "\\", shift: "|", glyph: "\\", shiftGlyph: "|", hindi: "? (प्रश्नचिह्न)", shiftHindi: "इ" },
       { key: "[", shift: "{", glyph: "[", shiftGlyph: "{", hindi: "ख", shiftHindi: "क्ष" },
       { key: "]", shift: "}", glyph: "]", shiftGlyph: "}", hindi: ", (अल्पविराम)", shiftHindi: "द्व" }
     ];
@@ -2518,6 +2522,15 @@
       elements.focusOverlay.classList.add('hidden');
     }
 
+    function isEquivalentGlyph(k1, k2) {
+      if (k1 === k2) return true;
+      // Remington equivalence: 'z' and '~' both produce ्र (r-paden) used in क्र (dz / d~), प्र (iz / i~), etc.
+      if ((k1 === 'z' && k2 === '~') || (k1 === '~' && k2 === 'z')) return true;
+      if ((k1 === 'Z' && k2 === '~') || (k1 === '~' && k2 === 'Z')) return true;
+      if ((k1 === '`' && k2 === '\'') || (k1 === '\'' && k2 === '`')) return true;
+      return false;
+    }
+
     function handleKeyDown(e) {
       if (STATE.isFinished) return;
 
@@ -2527,8 +2540,8 @@
 
       const key = e.key;
 
-      // Ignore modifiers
-      if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(key)) {
+      // Ignore modifiers and Dead keys (allow browser to process dead keys via input event)
+      if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Dead'].includes(key)) {
         return;
       }
 
@@ -2574,7 +2587,7 @@
       if (STATE.currentCharIndex < currentWordStr.length) {
         const charEl = document.getElementById(`char-${STATE.currentWordIndex}-${STATE.currentCharIndex}`);
 
-        if (key === targetChar) {
+        if (isEquivalentGlyph(key, targetChar)) {
           // Correct Character!
           if (charEl) {
             charEl.classList.add('correct');
